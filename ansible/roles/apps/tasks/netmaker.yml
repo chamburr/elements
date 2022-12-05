@@ -1,0 +1,30 @@
+---
+- name: Add netmaker key
+  ansible.builtin.apt_key:
+    keyring: /etc/apt/trusted.gpg.d/netmaker.asc
+    url: https://apt.netmaker.org/gpg.key
+    state: present
+
+- name: Add netmaker repository
+  ansible.builtin.apt_repository:
+    filename: netmaker
+    repo: deb [arch=amd64] https://apt.netmaker.org stable main
+    state: present
+
+- name: Install netmaker package
+  ansible.builtin.apt:
+    name: netclient
+    update_cache: true
+    state: present
+
+- name: Enable netmaker service
+  ansible.builtin.service:
+    name: netclient
+    enabled: true
+    state: started
+
+- name: Join netmaker network
+  ansible.builtin.command:
+    cmd: netclient join -t {{ lookup('env', 'NETMAKER_TOKEN') }}
+    creates: /etc/netclient/config/netconfig-default
+  when: lookup('env', 'NETMAKER_TOKEN') is defined

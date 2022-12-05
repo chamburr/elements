@@ -1,0 +1,33 @@
+---
+timezone: Etc/UTC
+
+snap:
+  - lxd
+  - subiquity
+  - core20
+  - snapd
+
+packages:
+  - iotop
+  - iperf3
+  - jq
+  - net-tools
+  - ncdu
+  - neofetch
+  - neovim
+  - tree
+  - unzip
+
+remove_packages:
+  - apport
+  - lxd-agent-loader
+  - snapd
+  - whoopsie
+
+swap_path: /swapfile
+swap_size: 2048
+swap_swappiness: 60
+
+username: user
+password: "*"
+ssh_keys: []

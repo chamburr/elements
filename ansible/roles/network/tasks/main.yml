@@ -1,0 +1,9 @@
+---
+- name: Include fail2ban tasks
+  ansible.builtin.include_tasks: fail2ban.yml
+
+- name: Include firewall tasks
+  ansible.builtin.include_tasks: firewall.yml
+
+- name: Include ssh tasks
+  ansible.builtin.include_tasks: ssh.yml

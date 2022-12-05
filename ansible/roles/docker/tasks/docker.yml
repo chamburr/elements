@@ -1,0 +1,33 @@
+---
+- name: Add docker key
+  ansible.builtin.apt_key:
+    keyring: /etc/apt/trusted.gpg.d/docker.asc
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+
+- name: Add docker repository
+  ansible.builtin.apt_repository:
+    filename: docker
+    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
+    state: present
+
+- name: Install docker packages
+  ansible.builtin.apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    update_cache: true
+    state: present
+
+- name: Install docker compose package
+  ansible.builtin.apt:
+    name: docker-compose-plugin
+    update_cache: true
+    state: present
+
+- name: Enable docker service
+  ansible.builtin.service:
+    name: docker
+    enabled: true
+    state: started

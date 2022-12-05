@@ -1,0 +1,45 @@
+---
+version: "3"
+
+services:
+  wiki:
+    image: requarks/wiki:2.5.292
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - sed -E 's/(.+)updateUser\(\{/        if (context.req.user.id === 4) return
+        graphHelper.generateError(new Error("BIG BROTHER IS WATCHING YOU!"))\n\n\1updateUser({/'
+        /wiki/server/graph/resolvers/user.js && node server
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=
+      - DB_NAME=wiki
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.wjfclass.rule=Host(`wjfclass.net`)
+      - traefik.http.routers.wjfclass.service=wjfclass-service
+      - traefik.http.services.wjfclass-service.loadbalancer.server.port=3000
+      - traefik.http.routers.wjfclass.tls=true
+      - traefik.http.routers.wjfclass.tls.certresolver=letsencrypt
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:15.1-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=wiki
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+networks:
+  traefik_default:
+    external: true
+
+volumes:
+  postgres:

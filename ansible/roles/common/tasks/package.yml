@@ -1,0 +1,40 @@
+---
+- name: Remove snap
+  community.general.snap:
+    name: "{{ snap }}"
+    state: absent
+
+- name: Install packages
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+    update_cache: true
+    state: present
+
+- name: Remove packages
+  ansible.builtin.apt:
+    name: "{{ remove_packages }}"
+    purge: true
+    state: absent
+
+- name: Install auto upgrade package
+  ansible.builtin.apt:
+    name: unattended-upgrades
+    update_cache: true
+    state: present
+
+- name: Copy auto upgrade configuration
+  ansible.builtin.copy:
+    src: "{{ item }}"
+    dest: /etc/apt/apt.conf.d/{{ item }}
+    owner: root
+    group: root
+    mode: 0644
+  loop:
+    - 20auto-upgrades
+    - 50unattended-upgrades
+
+- name: Enable auto upgrade service
+  ansible.builtin.service:
+    name: unattended-upgrades
+    enabled: true
+    state: started

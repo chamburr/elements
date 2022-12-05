@@ -1,0 +1,22 @@
+{
+  "extends": [":semanticCommits"],
+  "commitMessageTopic": "{{depName}}",
+  "commitMessageExtra": "to {{newVersion}}",
+  "commitMessageSuffix": "",
+  "packageRules": [
+    {
+      "matchPackagePatterns": ["*"],
+      "semanticCommitType": "build"
+    },
+    {
+      "matchDatasources": ["galaxy", "galaxy-collection"],
+      "semanticCommitScope": "ansible",
+      "commitMessageTopic": "{{depName}}"
+    },
+    {
+      "matchDatasources": ["docker"],
+      "semanticCommitScope": "docker",
+      "commitMessageTopic": "{{{replace '.+/' '' depName}}}"
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "config:base",
+    "docker:enableMajor",
+    ":disableRateLimiting",
+    ":disableDependencyDashboard",
+    "github>chamburr/elements//.drone/renovate/auto-merge",
+    "github>chamburr/elements//.drone/renovate/commit-message",
+    "github>chamburr/elements//.drone/renovate/pr-label"
+  ],
+  "onboarding": false,
+  "requireConfig": "optional",
+  "prBodyTemplate": "{{{table}}}{{{notes}}}{{{changelogs}}}{{{controls}}}",
+  "platform": "github",
+  "username": "chamburr-bot[bot]",
+  "gitAuthor": "chamburr-bot <113156419+chamburr-bot[bot]@users.noreply.github.com>",
+  "repositories": ["chamburr/elements"]
+}

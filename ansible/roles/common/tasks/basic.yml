@@ -1,0 +1,27 @@
+---
+- name: Set hostname
+  ansible.builtin.hostname:
+    name: "{{ inventory_hostname }}"
+    use: systemd
+
+- name: Add hostname to hosts file
+  ansible.builtin.lineinfile:
+    path: /etc/hosts
+    regexp: ^127.0.1.1
+    line: 127.0.1.1   {{ inventory_hostname }}
+    state: present
+
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ timezone }}"
+
+- name: Configure sysctl
+  ansible.posix.sysctl:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    reload: true
+    state: present
+  with_dict:
+    net.ipv4.ip_forward: 1
+    net.ipv4.conf.all.forwarding: 1
+    net.ipv6.conf.all.forwarding: 1

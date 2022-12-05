@@ -1,0 +1,9 @@
+---
+timezone: Asia/Tokyo
+
+swap_size: 2048
+
+firewall_services:
+  80/tcp: allow
+  443/tcp: allow
+  51820/udp: allow

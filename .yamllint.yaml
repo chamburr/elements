@@ -1,0 +1,17 @@
+---
+extends: default
+rules:
+  braces:
+    forbid: non-empty
+  brackets:
+    forbid: non-empty
+  comments:
+    min-spaces-from-content: 1
+  empty-lines:
+    max: 1
+  indentation:
+    spaces: 2
+  line-length:
+    max: 100
+  quoted-strings:
+    required: only-when-needed

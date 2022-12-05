@@ -1,0 +1,28 @@
+---
+version: "3"
+
+services:
+  node:
+    image: node:18.12.1-alpine
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - npm install -g miniflare && miniflare /config/worker.js
+    environment:
+      - SECRET=${SECRET}
+    networks:
+      - traefik_default
+    volumes:
+      - ${PWD}/worker.js:/config/worker.js
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.notes.rule=Host(`notes.chamburr.com`)
+      - traefik.http.routers.notes.service=notes-service
+      - traefik.http.services.notes-service.loadbalancer.server.port=8787
+      - traefik.http.routers.notes.tls=true
+      - traefik.http.routers.notes.tls.certresolver=letsencrypt
+
+networks:
+  traefik_default:
+    external: true

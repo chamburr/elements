@@ -1,0 +1,21 @@
+---
+version: "3"
+
+services:
+  wireguard:
+    image: alpine:3.17.0
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - apk add --no-cache socat wireguard-tools && echo "$CONFIG" > /etc/wireguard/wg0.conf &&
+        /bin/sh -c 'socat udp-listen:53,reuseaddr,fork udp:10.0.0.1:53 &
+        socat tcp-listen:53,reuseaddr,fork tcp:10.0.0.1:53 &' &&
+        wg-quick start wg0 && trap 'exit 0' TERM INT QUIT && sleep infinity & wait $!
+    environment:
+      - CONFIG=${CONFIG}
+    ports:
+      - 51820:51820/udp
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE

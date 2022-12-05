@@ -1,0 +1,9 @@
+---
+timezone: America/Los_Angeles
+
+swap_size: 4096
+
+firewall_services:
+  80/tcp: allow
+  443/tcp: allow
+  51820/udp: allow

@@ -1,0 +1,21 @@
+---
+version: "3"
+
+services:
+  chamburr:
+    image: >-
+      chamburr/chamburr.com@sha256:909449dbf772f5b23c041d102ab32366206d21e90a6c67870451c260d84cf89f
+    restart: unless-stopped
+    networks:
+      - traefik_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.homepage.rule=Host(`chamburr.com`)
+      - traefik.http.routers.homepage.service=homepage-service
+      - traefik.http.services.homepage-service.loadbalancer.server.port=3000
+      - traefik.http.routers.homepage.tls=true
+      - traefik.http.routers.homepage.tls.certresolver=letsencrypt
+
+networks:
+  traefik_default:
+    external: true

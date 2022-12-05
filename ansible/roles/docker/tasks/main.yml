@@ -1,0 +1,6 @@
+---
+- name: Include docker tasks
+  ansible.builtin.include_tasks: docker.yml
+
+- name: Include git tasks
+  ansible.builtin.include_tasks: git.yml

@@ -1,0 +1,128 @@
+---
+version: "3"
+
+services:
+  nginx:
+    image: mailu/nginx:1.9.40
+    restart: unless-stopped
+    environment:
+      - HOST_ADMIN=admin
+      - HOST_ANTISPAM_WEBUI=rspamd:11334
+      - TLS_FLAVOR=mail-letsencrypt
+      - HOSTNAMES=mail.chamburr.com
+      - POSTMASTER=postmaster
+      - DOMAIN=chamburr.com
+      - WEBMAIL=none
+      - WEBROOT_REDIRECT=/admin/
+    networks:
+      - traefik_default
+    ports:
+      - 587:587
+      - 993:993
+    volumes:
+      - nginx:/certs
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.mail.rule=Host(`mail.chamburr.com`)
+      - traefik.http.routers.mail.service=mail-service
+      - traefik.http.services.mail-service.loadbalancer.server.port=80
+      - traefik.http.routers.mail.tls=true
+      - traefik.http.routers.mail.tls.certresolver=letsencrypt
+
+  admin:
+    image: mailu/admin:1.9.40
+    restart: unless-stopped
+    environment:
+      - POSTMASTER=postmaster
+      - DOMAIN=chamburr.com
+      - HOSTNAMES=mail.chamburr.com
+      - HOST_AUTHSMTP=postfix
+      - HOST_IMAP=dovecot
+      - HOST_POP3=dovecot
+      - HOST_REDIS=redis
+      - HOST_SMTP=postfix
+      - WEBMAIL=none
+      - RECIPIENT_DELIMITER=+
+      - SUBNET=172.17.0.0/16
+      - PASSWORD_SCHEME=PBKDF2
+      - SECRET_KEY=${SECRET}
+      - MESSAGE_RATELIMIT=200/hour
+      - MESSAGE_RATELIMIT_EXEMPTION=
+      - AUTH_RATELIMIT_IP=60/hour
+      - AUTH_RATELIMIT_USER=100/day
+      - DB_FLAVOR=sqlite
+    volumes:
+      - admin:/data
+    depends_on:
+      - redis
+
+  dovecot:
+    image: mailu/dovecot:1.9.40
+    restart: unless-stopped
+    environment:
+      - HOST_ADMIN=admin
+      - HOST_ANTISPAM_WEBUI=rspamd:11334
+      - HOST_FRONT=nginx
+      - POSTMASTER=postmaster
+      - DOMAIN=chamburr.com
+      - HOSTNAMES=mail.chamburr.com
+      - RECIPIENT_DELIMITER=+
+      - COMPRESSION=none
+      - COMPRESSION_LEVEL=6
+    volumes:
+      - dovecot:/mail
+    depends_on:
+      - nginx
+
+  postfix:
+    image: mailu/postfix:1.9.40
+    restart: unless-stopped
+    environment:
+      - HOST_ADMIN=admin
+      - HOST_ANTISPAM_MILTER=rspamd:11332
+      - HOST_FRONT=nginx
+      - HOST_LMTP=dovecot:2525
+      - REJECT_UNLISTED_RECIPIENT=yes
+      - DOMAIN=chamburr.com
+      - HOSTNAMES=mail.chamburr.com
+      - MESSAGE_SIZE_LIMIT=104857600
+      - SUBNET=172.17.0.0/16
+      - RECIPIENT_DELIMITER=+
+      - RELAYHOST=${RELAY_HOST}:${RELAY_PORT}
+      - RELAYUSER=${RELAY_USERNAME}
+      - RELAYPASSWORD=${RELAY_PASSWORD}
+    volumes:
+      - postfix:/queue
+    depends_on:
+      - nginx
+
+  rspamd:
+    image: mailu/rspamd:1.9.40
+    restart: unless-stopped
+    environment:
+      - HOST_ADMIN=admin
+      - HOST_REDIS=redis
+      - ANTIVIRUS=none
+      - SUBNET=172.17.0.0/16
+    volumes:
+      - rspamd:/var/lib/rspamd
+    depends_on:
+      - nginx
+
+  redis:
+    image: redis:7.0.5-alpine
+    restart: unless-stopped
+    volumes:
+      - redis:/data
+
+networks:
+  traefik_default:
+    external: true
+
+volumes:
+  - nginx
+  - admin
+  - dovecot
+  - postfix
+  - rspamd
+  - redis

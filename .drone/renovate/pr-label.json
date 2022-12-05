@@ -1,0 +1,33 @@
+{
+  "labels": [],
+  "packageRules": [
+    {
+      "matchPaths": ["ansible/**"],
+      "addLabels": ["area/ansible"]
+    },
+    {
+      "matchPaths": ["docker-compose.yml"],
+      "addLabels": ["area/docker"]
+    },
+    {
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["version/major"]
+    },
+    {
+      "matchUpdateTypes": ["minor"],
+      "addLabels": ["version/minor"]
+    },
+    {
+      "matchUpdateTypes": ["patch"],
+      "addLabels": ["version/patch"]
+    },
+    {
+      "matchDatasources": ["galaxy", "galaxy-collection"],
+      "addLabels": ["renovate/ansible"]
+    },
+    {
+      "matchDatasources": ["docker"],
+      "addLabels": ["renovate/docker"]
+    }
+  ]
+}

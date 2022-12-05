@@ -1,0 +1,41 @@
+---
+version: "3"
+
+services:
+  ghost:
+    image: ghost:5.24.2-alpine
+    restart: unless-stopped
+    environment:
+      - url=https://blog.chamburr.com
+      - database__client=sqlite3
+      - database__connection__filename=content/data/ghost.db
+      - database__useNullAsDefault=true
+      - database__debug=false
+      - mail__transport=SMTP
+      - mail__from=${MAIL_SENDER}
+      - mail__options__service=Custom
+      - mail__options__host=${MAIL_HOST}
+      - mail__options__port=${MAIL_PORT}
+      - mail__options__secure=true
+      - mail__options__auth__user=${MAIL_USERNAME}
+      - mail__options__auth__pass=${MAIL_PASSWORD}
+      - logging__level=info
+      - logging__transports=["stdout"]
+    networks:
+      - traefik_default
+    volumes:
+      - ghost:/var/lib/ghost/content
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.blog.rule=Host(`blog.chamburr.com`)
+      - traefik.http.routers.blog.service=blog-service
+      - traefik.http.services.blog-service.loadbalancer.server.port=2368
+      - traefik.http.routers.blog.tls=true
+      - traefik.http.routers.blog.tls.certresolver=letsencrypt
+
+networks:
+  traefik_default:
+    external: true
+
+volumes:
+  ghost:
