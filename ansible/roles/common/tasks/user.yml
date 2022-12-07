@@ -1,4 +1,10 @@
 ---
+- name: Delete default user
+  ansible.builtin.user:
+    name: "{{ default_username }}"
+    remove: true
+    state: absent
+
 - name: Allow passwordless sudo
   ansible.builtin.lineinfile: # noqa: no-tabs
     path: /etc/sudoers
