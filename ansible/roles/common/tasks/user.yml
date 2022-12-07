@@ -24,6 +24,7 @@
     password: "{{ password }}"
     group: "{{ username }}"
     groups: sudo
+    shell: /bin/bash
     append: true
     state: present
 
