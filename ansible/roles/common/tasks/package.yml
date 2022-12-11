@@ -9,7 +9,7 @@
     - snap_remove.failed
     - "'Failed to find required executable' not in snap_remove.msg"
 
-- name: Remove snap directory
+- name: Delete snap directory
   ansible.builtin.file:
     path: /root/snap
     state: absent
