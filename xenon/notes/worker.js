@@ -133,7 +133,6 @@ class HeadRewriter {
   element(element) {
     element.append(
       `
-    <script defer data-domain="notes.chamburr.com" src="https://plausible.chamburr.xyz/js/script.js"></script>
     <style>
       #topContainer a {
         display: none;
