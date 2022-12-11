@@ -1,9 +1,9 @@
 ---
 - name: Add netmaker key
-  ansible.builtin.apt_key:
-    keyring: /etc/apt/trusted.gpg.d/netmaker.asc
+  ansible.builtin.get_url:
     url: https://apt.netmaker.org/gpg.key
-    state: present
+    dest: /etc/apt/trusted.gpg.d/netmaker.asc
+    mode: 0644
 
 - name: Add netmaker repository
   ansible.builtin.apt_repository:
