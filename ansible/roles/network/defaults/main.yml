@@ -7,6 +7,7 @@ fail2ban_ignore_ip:
   - 10.0.0.0/8
 
 firewall_services:
+  22/tcp: allow
   80/tcp: allow
   443/tcp: allow
   51820/udp: allow

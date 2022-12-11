@@ -5,17 +5,19 @@
     update_cache: true
     state: present
 
-- name: Configure firewall ssh
-  community.general.ufw:
-    rule: allow
-    name: OpenSSH
-
 - name: Configure firewall services
   community.general.ufw:
     rule: "{{ item.value }}"
     port: "{{ item.key.split('/')[0] }}"
     proto: "{{ item.key.split('/')[1] }}"
   with_dict: "{{ firewall_services }}"
+
+- name: Delete firewall services
+  community.general.ufw:
+    delete: true
+    rule: allow
+    port: 22
+    proto: any
 
 - name: Enable firewall service
   community.general.ufw:
