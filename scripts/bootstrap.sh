@@ -6,7 +6,7 @@ prepare() {
     exit 1
   fi
 
-  ansible-galaxy collection install -r ansible/requirements.yml
+  ansible-galaxy collection install -r ansible/requirements.yml > /dev/null
 }
 
 install() {
