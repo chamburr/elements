@@ -10,7 +10,7 @@ prepare() {
 }
 
 install() {
-  echo "Installing..."
+  echo 'Installing...'
 
   ./scripts/ansible.sh playbook ansible/main.yml --tags common \
     -l "$1" -e "ansible_host=$2"
@@ -26,5 +26,5 @@ install() {
     -l "$1" -e "ansible_host=$2"
 }
 
-prepare $@
-install $@
+prepare "$@"
+install "$@"
