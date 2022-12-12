@@ -13,8 +13,8 @@ questions!
 
 First, get a server running the latest Ubuntu LTS software, which could be rented from any cloud
 provider. Then, install prerequisites in Brewfile and update Ansible and environmental variables.
-Finally, run `./scripts/bootstrap.sh name address` to install everything on the server! You can
-repeat this process to configure multiple servers.
+Finally, run `./scripts/bootstrap.sh name` to install everything on the server! You can repeat this
+process to configure multiple servers.
 
 ## Core components
 
