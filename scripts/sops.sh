@@ -6,17 +6,19 @@ prepare() {
 }
 
 encrypt() {
-  echo "Encrypting..."
+  echo 'Encrypting...'
 
-  find . -mindepth 2 -name .env \
-    | xargs -I{} sh -c 'sops -e --input-type binary --output "$(echo {} | sed s/env/sops.env/)" {}'
+  find . -mindepth 2 -name .env -printf '%h\n' \
+    | xargs -I{} sh -c 'if [ ! -f "{}/.sops.env" ] ||
+    [ "$(sops -d --output-type binary {}/.sops.env)" != "$(cat {}/.env)" ]; then
+    sops -e --input-type binary --output {}/.sops.env {}/.env; fi'
 }
 
 decrypt() {
-  echo "Decrypting..."
+  echo 'Decrypting...'
 
-  find . -mindepth 2 -name .sops.env \
-    | xargs -I{} sh -c 'sops -d --output-type binary --output "$(echo {} | sed s/sops.env/env/)" {}'
+  find . -mindepth 2 -name .sops.env -printf '%h\n' \
+    | xargs -I{} sh -c 'sops -d --output-type binary --output {}/.env {}/.sops.env'
 }
 
 prepare
