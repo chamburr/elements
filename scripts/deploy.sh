@@ -1,6 +1,9 @@
 #!/bin/sh
 
 prepare() {
+  export SOPS_AGE_KEY="$AGE_KEY"
+  export SOPS_AGE_RECIPIENTS="$AGE_RECIPIENTS"
+
   find . -mindepth 2 -name .sops.env -printf '%h\n' \
     | xargs -I{} sh -c 'sops -d --output-type binary --output {}/.env {}/.sops.env'
 }
