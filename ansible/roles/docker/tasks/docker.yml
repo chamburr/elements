@@ -31,6 +31,9 @@
 
 - name: Enable docker service
   ansible.builtin.service:
-    name: docker
+    name: "{{ item }}"
     enabled: true
     state: started
+  loop:
+    - docker
+    - containerd

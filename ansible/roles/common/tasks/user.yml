@@ -13,17 +13,22 @@
     validate: visudo -cf %s
     state: present
 
-- name: Create group
+- name: Create groups
   ansible.builtin.group:
-    name: "{{ username }}"
+    name: "{{ item }}"
     state: present
+  loop:
+    - "{{ username }}"
+    - docker
 
 - name: Create user
   ansible.builtin.user:
     name: "{{ username }}"
     password: "{{ password }}"
     group: "{{ username }}"
-    groups: sudo
+    groups:
+      - sudo
+      - docker
     shell: /bin/bash
     append: true
     state: present
