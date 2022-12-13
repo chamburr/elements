@@ -1,14 +1,17 @@
 ---
 - name: Add docker key
-  ansible.builtin.get_url:
-    url: https://download.docker.com/linux/ubuntu/gpg
-    dest: /etc/apt/trusted.gpg.d/docker.asc
-    mode: 0644
+  ansible.builtin.shell: # noqa: command-instead-of-module
+    cmd: |
+      curl -s https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor \
+        > /usr/share/keyrings/docker.gpg
+    creates: /usr/share/keyrings/docker.gpg
 
 - name: Add docker repository
   ansible.builtin.apt_repository:
     filename: docker
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu jammy stable
+    repo: >-
+      deb [signed-by=/usr/share/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu
+      jammy stable
     state: present
 
 - name: Install docker packages

@@ -1,14 +1,13 @@
 ---
 - name: Add netmaker key
-  ansible.builtin.get_url:
-    url: https://apt.netmaker.org/gpg.key
-    dest: /etc/apt/trusted.gpg.d/netmaker.asc
-    mode: 0644
+  ansible.builtin.shell: # noqa: command-instead-of-module
+    cmd: curl -s https://apt.netmaker.org/gpg.key | gpg --dearmor > /usr/share/keyrings/netmaker.gpg
+    creates: /usr/share/keyrings/netmaker.gpg
 
 - name: Add netmaker repository
   ansible.builtin.apt_repository:
     filename: netmaker
-    repo: deb [arch=amd64] https://apt.netmaker.org stable main
+    repo: deb [signed-by=/usr/share/keyrings/netmaker.gpg] https://apt.netmaker.org stable main
     state: present
 
 - name: Install netmaker package
