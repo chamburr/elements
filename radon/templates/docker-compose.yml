@@ -4,7 +4,7 @@ version: "3"
 services:
   templates:
     image: >-
-      chamburr/discord-templates@sha256:eae2ffde62b1bee6862af239557f1f2ff334c94739988b0df811652bd167e19d
+      chamburr/discord-templates:latest@sha256:eae2ffde62b1bee6862af239557f1f2ff334c94739988b0df811652bd167e19d
     restart: unless-stopped
     command:
       - /bin/sh
