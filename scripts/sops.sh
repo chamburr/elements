@@ -14,17 +14,5 @@ encrypt() {
     sops -e --input-type binary --output {}/.sops.env {}/.env; fi'
 }
 
-decrypt() {
-  echo 'Decrypting...'
-
-  find . -mindepth 2 -name .sops.env -printf '%h\n' \
-    | xargs -I{} sh -c 'sops -d --output-type binary --output {}/.env {}/.sops.env'
-}
-
 prepare
-
-if [ "$1" = '' ]; then
-  encrypt
-elif [ "$1" = '--decrypt' ]; then
-  decrypt
-fi
+encrypt

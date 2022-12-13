@@ -1,11 +1,12 @@
 #!/bin/sh
 
 prepare() {
-  ./scripts/sops.sh --decrypt
+  find . -mindepth 2 -name .sops.env -printf '%h\n' \
+    | xargs -I{} sh -c 'sops -d --output-type binary --output {}/.env {}/.sops.env'
 }
 
 run() {
-  echo "Running..."
+  echo 'Running...'
 
   hostname=$(hostname)
 
