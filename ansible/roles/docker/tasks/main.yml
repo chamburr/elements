@@ -4,3 +4,6 @@
 
 - name: Include git tasks
   ansible.builtin.include_tasks: git.yml
+
+- name: Include sops tasks
+  ansible.builtin.include_tasks: sops.yml

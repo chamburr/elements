@@ -1,0 +1,21 @@
+---
+- name: Add sops key
+  ansible.builtin.shell: # noqa: command-instead-of-module
+    cmd: |
+      curl -s https://dl.cloudsmith.io/public/cloudposse-dev/packages/gpg.key | gpg --dearmor \
+        > /usr/share/keyrings/sops.gpg
+    creates: /usr/share/keyrings/sops.gpg
+
+- name: Add sops repository
+  ansible.builtin.apt_repository:
+    filename: sops
+    repo: >-
+      deb [signed-by=/usr/share/keyrings/sops.gpg]
+      https://dl.cloudsmith.io/public/cloudposse-dev/packages/deb/ubuntu jammy main
+    state: present
+
+- name: Install sops package
+  ansible.builtin.apt:
+    name: sops
+    update_cache: true
+    state: present
