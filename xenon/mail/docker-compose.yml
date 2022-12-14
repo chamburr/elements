@@ -120,9 +120,9 @@ networks:
     external: true
 
 volumes:
-  - nginx
-  - admin
-  - dovecot
-  - postfix
-  - rspamd
-  - redis
+  nginx:
+  admin:
+  dovecot:
+  postfix:
+  rspamd:
+  redis:
