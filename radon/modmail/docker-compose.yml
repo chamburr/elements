@@ -4,7 +4,7 @@ version: "3"
 services:
   web:
     image: >-
-      chamburr/modmail-web:latest@sha256:122f582d038f193967e222e901db70de1ee9dfcec9deeee674329df190f8c2e8
+      chamburr/modmail-web:latest@sha256:1c88cce1bbc6705f9a8d05ebb2bb8feed8d443d87e2f3a07a8d576ca93e435bf
     restart: unless-stopped
     command:
       - /bin/sh
@@ -19,7 +19,7 @@ services:
 
   api:
     image: >-
-      chamburr/modmail-api:latest@sha256:f72bda7abb70ff8c55dcd63ae02e807712c68ae1ccf2ed4be702aa44cdec4ec1
+      chamburr/modmail-api:latest@sha256:8cf8aa353e7ac7dadda4c186a48845b080f6c5b4343c8068283a9e7fbd744694
     restart: unless-stopped
     command:
       - /bin/sh
@@ -33,7 +33,7 @@ services:
 
   bot:
     image: >-
-      chamburr/modmail-bot:latest@sha256:367bc971367498f50217f5de5bb80844e04c2a5719c1ce477b8eecd1ccbd6ae9
+      chamburr/modmail-bot:latest@sha256:0d0bba7ed2cc12093c901767a03489b3b4a2dec22e0ac96104c70b0b0e0b03c4
     restart: unless-stopped
     command:
       - /bin/sh
@@ -49,7 +49,7 @@ services:
 
   dispatch:
     image: >-
-      chamburr/twilight-dispatch:latest@sha256:05e93610acea44625aef0dd788ad02b59df8984757775aabce33e953cedd1ca2
+      chamburr/twilight-dispatch:latest@sha256:833a4e643be8b30c620e8932aa9f69fa1531653cc59d4db95dab9124efadffe1
     restart: unless-stopped
     command:
       - /bin/sh

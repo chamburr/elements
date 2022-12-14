@@ -4,7 +4,7 @@ version: "3"
 services:
   chamburr:
     image: >-
-      chamburr/chamburr.com:latest@sha256:909449dbf772f5b23c041d102ab32366206d21e90a6c67870451c260d84cf89f
+      chamburr/chamburr.com:latest@sha256:7840115e2dc25c01ecb61e22191220d3775e51159af54bf4498adfd90ae23432
     restart: unless-stopped
     networks:
       - traefik_default
@@ -12,7 +12,7 @@ services:
       - traefik.enable=true
       - traefik.http.routers.homepage.rule=Host(`chamburr.com`)
       - traefik.http.routers.homepage.service=homepage-service
-      - traefik.http.services.homepage-service.loadbalancer.server.port=3000
+      - traefik.http.services.homepage-service.loadbalancer.server.port=80
       - traefik.http.routers.homepage.tls=true
       - traefik.http.routers.homepage.tls.certresolver=letsencrypt
 
