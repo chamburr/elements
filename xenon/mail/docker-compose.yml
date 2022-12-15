@@ -28,6 +28,8 @@ services:
       - traefik.http.services.mail-service.loadbalancer.server.port=80
       - traefik.http.routers.mail.tls=true
       - traefik.http.routers.mail.tls.certresolver=letsencrypt
+    healthcheck:
+      disable: true
 
   admin:
     image: mailu/admin:1.9.43
@@ -53,6 +55,8 @@ services:
       - DB_FLAVOR=sqlite
     volumes:
       - admin:/data
+    healthcheck:
+      disable: true
     depends_on:
       - redis
 
@@ -71,6 +75,8 @@ services:
       - COMPRESSION_LEVEL=6
     volumes:
       - dovecot:/mail
+    healthcheck:
+      disable: true
     depends_on:
       - nginx
 
@@ -93,6 +99,8 @@ services:
       - RELAYPASSWORD=${RELAY_PASSWORD}
     volumes:
       - postfix:/queue
+    healthcheck:
+      disable: true
     depends_on:
       - nginx
 
@@ -106,6 +114,8 @@ services:
       - SUBNET=172.17.0.0/16
     volumes:
       - rspamd:/var/lib/rspamd
+    healthcheck:
+      disable: true
     depends_on:
       - nginx
 
