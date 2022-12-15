@@ -11,7 +11,7 @@ steps:
       - echo "$SSH_PRIVATE_KEY" > /tmp/id_ed25519
       - chmod 400 /tmp/id_ed25519
       - ./scripts/ansible.sh all -a "chdir=/home/chamburr/elements
-        /bin/sh -c 'git pull && AGE_KEY=$AGE_KEY AGE_RECIPIENTS=$AGE_RECIPIENTS
+        /bin/sh -c 'git pull --rebase && AGE_KEY=$AGE_KEY AGE_RECIPIENTS=$AGE_RECIPIENTS
         ./scripts/deploy.sh'"
     environment:
       ANSIBLE_FORCE_COLOR: true
