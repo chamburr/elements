@@ -13,6 +13,8 @@ services:
       - SECRET=${SECRET}
     networks:
       - traefik_default
+    expose:
+      - "8787"
     volumes:
       - ${PWD}/worker.js:/config/worker.js
     labels:
