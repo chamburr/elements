@@ -4,7 +4,7 @@ version: "3"
 services:
   chamburr:
     image: >-
-      chamburr/chamburr.com:latest@sha256:7840115e2dc25c01ecb61e22191220d3775e51159af54bf4498adfd90ae23432
+      chamburr/chamburr.com:latest@sha256:2afa783056e1ecc5d49e90328e39d059017895488bef53ff99e17344510aeb8f
     restart: unless-stopped
     networks:
       - traefik_default
