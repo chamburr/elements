@@ -81,7 +81,7 @@ services:
       - nginx
 
   postfix:
-    image: mailu/postfix:1.9.40
+    image: mailu/postfix:1.9.43
     restart: unless-stopped
     environment:
       - HOST_ADMIN=admin
