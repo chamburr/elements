@@ -16,6 +16,13 @@ services:
       - traefik_default
     depends_on:
       - api
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.modmail.rule=Host(`modmail.xyz`)
+      - traefik.http.routers.modmail.service=modmail-service
+      - traefik.http.services.modmail-service.loadbalancer.server.port=6000
+      - traefik.http.routers.modmail.tls=true
+      - traefik.http.routers.modmail.tls.certresolver=letsencrypt
 
   api:
     image: >-
