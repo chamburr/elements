@@ -6,7 +6,8 @@ services:
     image: traefik:v2.9.5
     restart: unless-stopped
     command:
-      - --api.insecure=true
+      - --api.dashboard=false
+      - --api.insecure=false
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=traefik_default
