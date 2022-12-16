@@ -76,8 +76,6 @@ services:
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
       - RECIPIENT_DELIMITER=+
-      - COMPRESSION=none
-      - COMPRESSION_LEVEL=6
     volumes:
       - dovecot:/mail
     healthcheck:
