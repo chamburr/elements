@@ -1,0 +1,13 @@
+---
+- name: Update dns configuration
+  ansible.builtin.lineinfile:
+    path: /etc/systemd/resolved.conf
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.line }}"
+    state: present
+  loop:
+    - regexp: ^#?DNS=
+      line: DNS={{ dns_servers | join(' ') }}
+    - regexp: ^#?DNSSEC=
+      line: DNSSEC=yes
+  notify: Restart dns service

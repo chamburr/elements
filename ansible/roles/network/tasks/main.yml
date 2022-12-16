@@ -1,4 +1,7 @@
 ---
+- name: Include dns tasks
+  ansible.builtin.include_tasks: dns.yml
+
 - name: Include fail2ban tasks
   ansible.builtin.include_tasks: fail2ban.yml
 
