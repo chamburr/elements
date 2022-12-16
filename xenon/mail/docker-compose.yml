@@ -50,7 +50,7 @@ services:
       - HOST_SMTP=postfix
       - WEBMAIL=none
       - RECIPIENT_DELIMITER=+
-      - SUBNET=172.17.0.0/16
+      - SUBNET=172.16.0.0/12
       - PASSWORD_SCHEME=PBKDF2
       - SECRET_KEY=${SECRET}
       - MESSAGE_RATELIMIT=200/hour
@@ -97,7 +97,7 @@ services:
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
       - MESSAGE_SIZE_LIMIT=104857600
-      - SUBNET=172.17.0.0/16
+      - SUBNET=172.16.0.0/12
       - RECIPIENT_DELIMITER=+
       - RELAYHOST=${RELAY_HOST}:${RELAY_PORT}
       - RELAYUSER=${RELAY_USERNAME}
@@ -116,7 +116,7 @@ services:
       - HOST_ADMIN=admin
       - HOST_REDIS=redis
       - ANTIVIRUS=none
-      - SUBNET=172.17.0.0/16
+      - SUBNET=172.16.0.0/12
     volumes:
       - rspamd:/var/lib/rspamd
     healthcheck:
