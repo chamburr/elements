@@ -10,11 +10,12 @@ services:
       - HOST_ANTISPAM_WEBUI=rspamd:11334
       - TLS_FLAVOR=mail-letsencrypt
       - HOSTNAMES=mail.chamburr.com
-      - POSTMASTER=postmaster
+      - POSTMASTER=hi
       - DOMAIN=chamburr.com
       - WEBMAIL=none
       - WEBROOT_REDIRECT=/admin/
     networks:
+      - default
       - traefik_default
     ports:
       - 587:587

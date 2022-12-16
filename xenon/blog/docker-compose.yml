@@ -22,6 +22,7 @@ services:
       - logging__level=info
       - logging__transports=["stdout"]
     networks:
+      - default
       - traefik_default
     volumes:
       - ghost:/var/lib/ghost/content

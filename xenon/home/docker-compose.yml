@@ -7,6 +7,7 @@ services:
       chamburr/chamburr.com:latest@sha256:2afa783056e1ecc5d49e90328e39d059017895488bef53ff99e17344510aeb8f
     restart: unless-stopped
     networks:
+      - default
       - traefik_default
     labels:
       - traefik.enable=true

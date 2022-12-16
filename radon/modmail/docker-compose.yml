@@ -13,6 +13,7 @@ services:
     environment:
       - CONFIG=${CONFIG}
     networks:
+      - default
       - traefik_default
     depends_on:
       - api

@@ -12,6 +12,7 @@ services:
     environment:
       - SECRET=${SECRET}
     networks:
+      - default
       - traefik_default
     expose:
       - "8787"

@@ -18,6 +18,9 @@ services:
       - DB_USER=postgres
       - DB_PASS=
       - DB_NAME=wiki
+    networks:
+      - default
+      - traefik_default
     labels:
       - traefik.enable=true
       - traefik.http.routers.wjfclass.rule=Host(`wjfclass.net`)
