@@ -10,10 +10,14 @@ services:
       - HOST_ANTISPAM_WEBUI=rspamd:11334
       - TLS_FLAVOR=mail-letsencrypt
       - HOSTNAMES=mail.chamburr.com
+      - MESSAGE_SIZE_LIMIT=104857600
       - POSTMASTER=hi
       - DOMAIN=chamburr.com
+      - ADMIN=true
+      - WEBDAV=none
       - WEBMAIL=none
       - WEBROOT_REDIRECT=/admin/
+      - WEB_ADMIN=/admin
     networks:
       - default
       - traefik_default
