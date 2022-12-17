@@ -85,7 +85,7 @@ services:
       - ${PWD}/keydb.conf:/etc/keydb/keydb.conf
 
   rabbitmq:
-    image: rabbitmq:3.11.4-alpine
+    image: rabbitmq:3.11.5-alpine
     restart: unless-stopped
 
 networks:
