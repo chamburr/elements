@@ -22,6 +22,7 @@ services:
       - default
       - traefik_default
     ports:
+      - "25:25"
       - 587:587
       - 993:993
     volumes:
