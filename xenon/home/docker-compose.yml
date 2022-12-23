@@ -4,7 +4,7 @@ version: "3"
 services:
   chamburr:
     image: >-
-      chamburr/chamburr.com:latest@sha256:89bd4089649a9527459aec6c0967fb5339bac59a6c29970bb829c50426c3c9d0
+      chamburr/chamburr.com:latest@sha256:8c004adb2db461bd36fedb69a159d5a1aef379725a99b78b22906caffe1312be
     restart: unless-stopped
     networks:
       - default
