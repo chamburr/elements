@@ -1,3 +1,6 @@
 ---
 - name: Include netmaker tasks
   ansible.builtin.include_tasks: netmaker.yml
+
+- name: Include backup tasks
+  ansible.builtin.include_tasks: backup.yml
