@@ -1,8 +1,8 @@
 #!/bin/sh
 
 prepare() {
-  export SOPS_AGE_KEY=$(grep AGE_KEY= .env | cut -d '=' -f2-)
-  export SOPS_AGE_RECIPIENTS=$(grep AGE_RECIPIENTS= .env | cut -d '=' -f2-)
+  export SOPS_AGE_KEY=$(grep ^AGE_KEY= .env | cut -d '=' -f2-)
+  export SOPS_AGE_RECIPIENTS=$(grep ^AGE_RECIPIENTS= .env | cut -d '=' -f2-)
 }
 
 encrypt() {
