@@ -9,7 +9,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - echo "$CONFIG" > /.env && yarn start
+      - printenv CONFIG > /.env && yarn start
     environment:
       - CONFIG=${CONFIG}
     networks:
@@ -32,7 +32,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - echo "$CONFIG" > /.env && ./modmail
+      - printenv CONFIG > /.env && ./modmail
     environment:
       - CONFIG=${CONFIG}
     depends_on:
@@ -46,7 +46,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - echo "$CONFIG" > /.env && ./bin/entrypoint.sh
+      - printenv CONFIG > /.env && ./bin/entrypoint.sh
     environment:
       - CONFIG=${CONFIG}
     depends_on:
@@ -62,7 +62,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - echo "$CONFIG" > /.env && ./twilight-dispatch
+      - printenv CONFIG > /.env && ./twilight-dispatch
     environment:
       - CONFIG=${DISPATCH_CONFIG}
     depends_on:

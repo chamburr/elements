@@ -9,7 +9,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - echo "$CONFIG" > /app/config.json && yarn start
+      - printenv CONFIG > /app/config.json && yarn start
     environment:
       - CONFIG=${CONFIG}
     networks:
