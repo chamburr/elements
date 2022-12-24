@@ -1,7 +1,7 @@
 ---
 - name: Enable ssh service
   ansible.builtin.service:
-    name: sshd
+    name: ssh
     enabled: true
     state: started
 
