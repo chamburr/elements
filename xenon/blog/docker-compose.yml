@@ -7,10 +7,12 @@ services:
     restart: unless-stopped
     environment:
       - url=https://blog.chamburr.com
-      - database__client=sqlite3
-      - database__connection__filename=content/data/ghost.db
-      - database__useNullAsDefault=true
-      - database__debug=false
+      - database__client=mysql
+      - database__connection__host=mysql
+      - database__connection__port=3306
+      - database__connection__user=root
+      - database__connection__password=
+      - database__connection__database=ghost
       - mail__transport=SMTP
       - mail__from=${MAIL_SENDER}
       - mail__options__service=Custom
@@ -34,9 +36,19 @@ services:
       - traefik.http.routers.blog.tls=true
       - traefik.http.routers.blog.tls.certresolver=letsencrypt
 
+  mysql:
+    image: mysql:8.0.31
+    restart: unless-stopped
+    environment:
+      - MYSQL_DATABASE=ghost
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - mysql:/var/lib/mysql
+
 networks:
   traefik_default:
     external: true
 
 volumes:
   ghost:
+  mysql:
