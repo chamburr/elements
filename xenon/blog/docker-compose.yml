@@ -18,7 +18,7 @@ services:
       - mail__options__service=Custom
       - mail__options__host=${MAIL_HOST}
       - mail__options__port=${MAIL_PORT}
-      - mail__options__secure=true
+      - mail__options__secure=false
       - mail__options__auth__user=${MAIL_USERNAME}
       - mail__options__auth__pass=${MAIL_PASSWORD}
       - logging__level=info
