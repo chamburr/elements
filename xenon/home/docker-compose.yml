@@ -11,14 +11,14 @@ services:
       - traefik_default
     labels:
       - traefik.enable=true
-      - traefik.http.services.homepage.loadbalancer.server.port=80
-      - traefik.http.routers.homepage.rule=Host(`chamburr.com`, `www.chamburr.com`)
-      - traefik.http.routers.homepage.service=homepage
-      - traefik.http.routers.homepage.middlewares=redirect
-      - traefik.http.routers.homepage.tls=true
-      - traefik.http.routers.homepage.tls.certresolver=letsencrypt
-      - traefik.http.routers.homepage.tls.domains[0].main=chamburr.com
-      - traefik.http.routers.homepage.tls.domains[0].sans=*.chamburr.com
+      - traefik.http.services.home.loadbalancer.server.port=80
+      - traefik.http.routers.home.rule=Host(`chamburr.com`, `www.chamburr.com`)
+      - traefik.http.routers.home.service=homepage
+      - traefik.http.routers.home.middlewares=redirect
+      - traefik.http.routers.home.tls=true
+      - traefik.http.routers.home.tls.certresolver=letsencrypt
+      - traefik.http.routers.home.tls.domains[0].main=chamburr.com
+      - traefik.http.routers.home.tls.domains[0].sans=*.chamburr.com
 
 networks:
   traefik_default:
