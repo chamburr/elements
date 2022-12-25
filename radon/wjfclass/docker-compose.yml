@@ -12,10 +12,10 @@ services:
         graphHelper.generateError(new Error("BIG BROTHER IS WATCHING YOU!"))\n\n\1updateUser({/'
         /wiki/server/graph/resolvers/user.js && node server
     environment:
-      - DB_TYPE=postgres
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USER=postgres
+      - DB_TYPE=mariadb
+      - DB_HOST=mariadb
+      - DB_PORT=3306
+      - DB_USER=root
       - DB_PASS=
       - DB_NAME=wiki
     networks:
@@ -31,18 +31,27 @@ services:
     depends_on:
       - postgres
 
-  postgres:
-    image: postgres:15.1-alpine
+  mariadb:
+    image: mariadb:10.10.2
     restart: unless-stopped
     environment:
-      - POSTGRES_DB=wiki
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - MARIADB_DATABASE=wiki
+      - MARIADB_ALLOW_EMPTY_PASSWORD=yes
     volumes:
-      - postgres:/var/lib/postgresql/data
+      - mariadb:/var/lib/mysql
+
+  # postgres:
+  #   image: postgres:15.1-alpine
+  #   restart: unless-stopped
+  #   environment:
+  #     - POSTGRES_DB=wiki
+  #     - POSTGRES_HOST_AUTH_METHOD=trust
+  #   volumes:
+  #     - postgres:/var/lib/postgresql/data
 
 networks:
   traefik_default:
     external: true
 
 volumes:
-  postgres:
+  mariadb:
