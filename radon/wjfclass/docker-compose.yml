@@ -8,16 +8,12 @@ services:
     command:
       - /bin/sh
       - -c
-      - sed -E 's/(.+)updateUser\(\{/        if (context.req.user.id === 4) return
+      - sed -i -E 's/(.+)updateUser\(\{/        if (context.req.user.id === 4) return
         graphHelper.generateError(new Error("BIG BROTHER IS WATCHING YOU!"))\n\n\1updateUser({/'
         /wiki/server/graph/resolvers/user.js && node server
     environment:
       - DB_TYPE=mariadb
-      - DB_HOST=mariadb
-      - DB_PORT=3306
-      - DB_USER=root
-      - DB_PASS=
-      - DB_NAME=wiki
+      - DATABASE_URL=mysql://root@mariadb:3306/wiki
     networks:
       - default
       - traefik_default
