@@ -20,11 +20,13 @@ services:
       - ${PWD}/worker.js:/config/worker.js
     labels:
       - traefik.enable=true
+      - traefik.http.services.notes.loadbalancer.server.port=8787
       - traefik.http.routers.notes.rule=Host(`notes.chamburr.com`)
-      - traefik.http.routers.notes.service=notes-service
-      - traefik.http.services.notes-service.loadbalancer.server.port=8787
+      - traefik.http.routers.notes.service=notes
       - traefik.http.routers.notes.tls=true
       - traefik.http.routers.notes.tls.certresolver=letsencrypt
+      - traefik.http.routers.notes.tls.domains[0].main=chamburr.com
+      - traefik.http.routers.notes.tls.domains[0].sans=*.chamburr.com
 
 networks:
   traefik_default:

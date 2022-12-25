@@ -30,11 +30,13 @@ services:
       - ghost:/var/lib/ghost/content
     labels:
       - traefik.enable=true
+      - traefik.http.services.blog.loadbalancer.server.port=2368
       - traefik.http.routers.blog.rule=Host(`blog.chamburr.com`)
-      - traefik.http.routers.blog.service=blog-service
-      - traefik.http.services.blog-service.loadbalancer.server.port=2368
+      - traefik.http.routers.blog.service=blog
       - traefik.http.routers.blog.tls=true
       - traefik.http.routers.blog.tls.certresolver=letsencrypt
+      - traefik.http.routers.blog.tls.domains[0].main=chamburr.com
+      - traefik.http.routers.blog.tls.domains[0].sans=*.chamburr.com
 
   mysql:
     image: mysql:8.0.31

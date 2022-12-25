@@ -19,11 +19,14 @@ services:
       - templates:/data
     labels:
       - traefik.enable=true
-      - traefik.http.routers.templates.rule=Host(`discordtemplates.me`)
-      - traefik.http.routers.templates.service=templates-service
-      - traefik.http.services.templates-service.loadbalancer.server.port=8080
+      - traefik.http.services.templates.loadbalancer.server.port=8080
+      - traefik.http.routers.templates.rule=Host(`discordtemplates.me`, `www.discordtemplates.me`)
+      - traefik.http.routers.templates.service=templates
+      - traefik.http.routers.templates.middlewares=redirect@docker
       - traefik.http.routers.templates.tls=true
       - traefik.http.routers.templates.tls.certresolver=letsencrypt
+      - traefik.http.routers.templates.tls.domains[0].main=discordtemplates.me
+      - traefik.http.routers.templates.tls.domains[0].sans=*.discordtemplates.me
 
 networks:
   traefik_default:

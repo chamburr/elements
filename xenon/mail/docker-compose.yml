@@ -29,11 +29,13 @@ services:
       - nginx:/certs
     labels:
       - traefik.enable=true
+      - traefik.http.services.mail.loadbalancer.server.port=80
       - traefik.http.routers.mail.rule=Host(`mail.chamburr.com`)
-      - traefik.http.routers.mail.service=mail-service
-      - traefik.http.services.mail-service.loadbalancer.server.port=80
+      - traefik.http.routers.mail.service=mail
       - traefik.http.routers.mail.tls=true
       - traefik.http.routers.mail.tls.certresolver=letsencrypt
+      - traefik.http.routers.mail.tls.domains[0].main=chamburr.com
+      - traefik.http.routers.mail.tls.domains[0].sans=*.chamburr.com
     healthcheck:
       disable: true
 

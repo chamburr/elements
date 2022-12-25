@@ -23,11 +23,14 @@ services:
       - traefik_default
     labels:
       - traefik.enable=true
-      - traefik.http.routers.wjfclass.rule=Host(`wjfclass.net`)
-      - traefik.http.routers.wjfclass.service=wjfclass-service
-      - traefik.http.services.wjfclass-service.loadbalancer.server.port=3000
+      - traefik.http.services.wjfclass.loadbalancer.server.port=3000
+      - traefik.http.routers.wjfclass.rule=Host(`wjfclass.net`, `www.wjfclass.net`)
+      - traefik.http.routers.wjfclass.service=wjfclass
+      - traefik.http.routers.wjfclass.middlewares=redirect@docker
       - traefik.http.routers.wjfclass.tls=true
       - traefik.http.routers.wjfclass.tls.certresolver=letsencrypt
+      - traefik.http.routers.blog.tls.domains[0].main=wjfclass.net
+      - traefik.http.routers.blog.tls.domains[0].sans=*.wjfclass.net
     depends_on:
       - postgres
 
@@ -39,15 +42,6 @@ services:
       - MARIADB_ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - mariadb:/var/lib/mysql
-
-  # postgres:
-  #   image: postgres:15.1-alpine
-  #   restart: unless-stopped
-  #   environment:
-  #     - POSTGRES_DB=wiki
-  #     - POSTGRES_HOST_AUTH_METHOD=trust
-  #   volumes:
-  #     - postgres:/var/lib/postgresql/data
 
 networks:
   traefik_default:

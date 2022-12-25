@@ -33,8 +33,6 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - traefik:/data
     labels:
-      - traefik.http.routers.global.rule=HostRegexp(`{host:(www\..+)}`)
-      - traefik.http.routers.global.middlewares=redirect@docker
       - traefik.http.middlewares.redirect.redirectregex.regex=^https://www\.([^/]+)(/.*)?$
       - traefik.http.middlewares.redirect.redirectregex.replacement=https://$${1}$${2}
 

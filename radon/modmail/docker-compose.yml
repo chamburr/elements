@@ -19,11 +19,14 @@ services:
       - api
     labels:
       - traefik.enable=true
-      - traefik.http.routers.modmail.rule=Host(`modmail.xyz`)
-      - traefik.http.routers.modmail.service=modmail-service
-      - traefik.http.services.modmail-service.loadbalancer.server.port=6000
+      - traefik.http.services.modmail.loadbalancer.server.port=6000
+      - traefik.http.routers.modmail.rule=Host(`modmail.xyz`, `www.modmail.xyz`)
+      - traefik.http.routers.modmail.service=modmail
+      - traefik.http.routers.modmail.middlewares=redirect@docker
       - traefik.http.routers.modmail.tls=true
       - traefik.http.routers.modmail.tls.certresolver=letsencrypt
+      - traefik.http.routers.templates.tls.domains[0].main=modmail.xyz
+      - traefik.http.routers.templates.tls.domains[0].sans=*.modmail.xyz
 
   api:
     image: >-
