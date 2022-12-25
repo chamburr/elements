@@ -39,6 +39,8 @@ services:
   mysql:
     image: mysql:8.0.31
     restart: unless-stopped
+    command:
+      - --performance-schema=OFF
     environment:
       - MYSQL_DATABASE=ghost
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
