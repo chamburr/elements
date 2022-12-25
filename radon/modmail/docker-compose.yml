@@ -22,7 +22,7 @@ services:
       - traefik.http.services.modmail.loadbalancer.server.port=6000
       - traefik.http.routers.modmail.rule=Host(`modmail.xyz`, `www.modmail.xyz`)
       - traefik.http.routers.modmail.service=modmail
-      - traefik.http.routers.modmail.middlewares=redirect@docker
+      - traefik.http.routers.modmail.middlewares=redirect
       - traefik.http.routers.modmail.tls=true
       - traefik.http.routers.modmail.tls.certresolver=letsencrypt
       - traefik.http.routers.templates.tls.domains[0].main=modmail.xyz

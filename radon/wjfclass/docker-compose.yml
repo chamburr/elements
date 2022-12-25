@@ -26,7 +26,7 @@ services:
       - traefik.http.services.wjfclass.loadbalancer.server.port=3000
       - traefik.http.routers.wjfclass.rule=Host(`wjfclass.net`, `www.wjfclass.net`)
       - traefik.http.routers.wjfclass.service=wjfclass
-      - traefik.http.routers.wjfclass.middlewares=redirect@docker
+      - traefik.http.routers.wjfclass.middlewares=redirect
       - traefik.http.routers.wjfclass.tls=true
       - traefik.http.routers.wjfclass.tls.certresolver=letsencrypt
       - traefik.http.routers.blog.tls.domains[0].main=wjfclass.net
