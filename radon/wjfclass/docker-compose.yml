@@ -28,9 +28,6 @@ services:
       - traefik.http.routers.wjfclass.service=wjfclass
       - traefik.http.routers.wjfclass.middlewares=redirect
       - traefik.http.routers.wjfclass.tls=true
-      - traefik.http.routers.wjfclass.tls.certresolver=letsencrypt
-      - traefik.http.routers.blog.tls.domains[0].main=wjfclass.net
-      - traefik.http.routers.blog.tls.domains[0].sans=*.wjfclass.net
     depends_on:
       - mariadb
 
@@ -39,7 +36,7 @@ services:
     restart: unless-stopped
     environment:
       - MARIADB_DATABASE=wiki
-      - MARIADB_ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=yes
     volumes:
       - mariadb:/var/lib/mysql
 
