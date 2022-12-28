@@ -83,8 +83,9 @@ services:
   redis:
     image: eqalpha/keydb:x86_64_v6.3.1
     restart: unless-stopped
-    volumes:
-      - ${PWD}/keydb.conf:/etc/keydb/keydb.conf
+    command:
+      - --save ""
+      - --server-threads 4
 
   rabbitmq:
     image: rabbitmq:3.11.5-alpine
