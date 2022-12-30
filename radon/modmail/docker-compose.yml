@@ -3,8 +3,8 @@ version: "3"
 
 services:
   web:
-    image: >-
-      chamburr/modmail-web:latest@sha256:b91bbc34be5a8a1c69526380c285dc3e0b572abc2c285fc0babdcf79a00015e3
+    # yamllint disable-line rule:line-length
+    image: chamburr/modmail-web:latest@sha256:b91bbc34be5a8a1c69526380c285dc3e0b572abc2c285fc0babdcf79a00015e3
     restart: unless-stopped
     command:
       - /bin/sh
@@ -29,8 +29,8 @@ services:
       - traefik.http.routers.templates.tls.domains[0].sans=*.modmail.xyz
 
   api:
-    image: >-
-      chamburr/modmail-api:latest@sha256:2e74c99dd7bac5a2f7266e2a84eb92c145a84094b3a76d9344497507bd5f5aa9
+    # yamllint disable-line rule:line-length
+    image: chamburr/modmail-api:latest@sha256:2e74c99dd7bac5a2f7266e2a84eb92c145a84094b3a76d9344497507bd5f5aa9
     restart: unless-stopped
     command:
       - /bin/sh
@@ -43,8 +43,8 @@ services:
       - redis
 
   bot:
-    image: >-
-      chamburr/modmail-bot:latest@sha256:08b7152fcade454e8535447ea2307bb2bf0ec6eba6dcc5fd267f80bf615b7cf4
+    # yamllint disable-line rule:line-length
+    image: chamburr/modmail-bot:latest@sha256:08b7152fcade454e8535447ea2307bb2bf0ec6eba6dcc5fd267f80bf615b7cf4
     restart: unless-stopped
     command:
       - /bin/sh
