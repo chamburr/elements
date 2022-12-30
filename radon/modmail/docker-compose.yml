@@ -9,7 +9,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - printenv CONFIG > /app/.env && yarn start
+      - printenv CONFIG > /.env && yarn start
     environment:
       - CONFIG=${CONFIG}
     networks:
@@ -35,7 +35,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - printenv CONFIG > /app/.env && ./modmail
+      - printenv CONFIG > /.env && ./modmail
     environment:
       - CONFIG=${CONFIG}
     depends_on:
