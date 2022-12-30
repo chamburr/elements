@@ -1,0 +1,14 @@
+---
+version: "3"
+
+services:
+  helper:
+    image: >-
+      chamburr/modmail-helper:latest@sha256:d266d264040ce9daaeb6aed03838bdf47726e9006eba42169a403f920baaaa7a
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - printenv CONFIG > /app/config.json && yarn start
+    environment:
+      - CONFIG=${CONFIG}
