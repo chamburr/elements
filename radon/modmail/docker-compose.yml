@@ -4,12 +4,12 @@ version: "3"
 services:
   web:
     # yamllint disable-line rule:line-length
-    image: chamburr/modmail-web:latest@sha256:af130ce48df8ce0033395c8e9b49b1e1b014825233686b6f801b900e4e02d079
+    image: chamburr/modmail-web:latest@sha256:084c932bb57815d77ea6dd4aefb69b614f53e55ce1bd3f522a977efd154abaa3
     restart: unless-stopped
     command:
       - /bin/sh
       - -c
-      - printenv CONFIG > /.env && yarn start
+      - printenv CONFIG > /app/.env && yarn start
     environment:
       - CONFIG=${CONFIG}
     networks:
@@ -30,12 +30,12 @@ services:
 
   api:
     # yamllint disable-line rule:line-length
-    image: chamburr/modmail-api:latest@sha256:13155bf767b1d2d67f6d346688ff7d7040e33b828746ca9b39caad76b7541326
+    image: chamburr/modmail-api:latest@sha256:00c773a418a545da0e2cae425105d6e262604c740459606e1b9cb25dd98f6029
     restart: unless-stopped
     command:
       - /bin/sh
       - -c
-      - printenv CONFIG > /.env && ./modmail
+      - printenv CONFIG > /app/.env && ./modmail
     environment:
       - CONFIG=${CONFIG}
     depends_on:
@@ -44,12 +44,12 @@ services:
 
   bot:
     # yamllint disable-line rule:line-length
-    image: chamburr/modmail-bot:latest@sha256:2c900ef26dfeeb94d554f44a5f5f3450b21e903f01caabb25ece112427d4b2d6
+    image: chamburr/modmail-bot:latest@sha256:2bd0e582711bf65c101d6c4a52c1296ec26f2cff4f654c5e40b3158b2d3d5a79
     restart: unless-stopped
     command:
       - /bin/sh
       - -c
-      - printenv CONFIG > /.env && ./bin/entrypoint.sh
+      - printenv CONFIG > /app/.env && ./bin/entrypoint.sh
     environment:
       - CONFIG=${CONFIG}
     depends_on:
@@ -64,7 +64,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - printenv CONFIG > /.env && ./twilight-dispatch
+      - printenv CONFIG > /app/.env && ./twilight-dispatch
     environment:
       - CONFIG=${DISPATCH_CONFIG}
     depends_on:
