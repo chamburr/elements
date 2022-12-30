@@ -6,7 +6,7 @@
       "addLabels": ["area/ansible"]
     },
     {
-      "matchPaths": ["docker-compose.yml"],
+      "matchPaths": ["**/*/docker-compose.yml"],
       "addLabels": ["area/docker"]
     },
     {
