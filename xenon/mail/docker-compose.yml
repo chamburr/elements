@@ -111,7 +111,7 @@ services:
       - nginx
 
   rspamd:
-    image: mailu/rspamd:1.9.43
+    image: mailu/rspamd:1.9.44
     restart: unless-stopped
     environment:
       - HOST_ADMIN=admin
