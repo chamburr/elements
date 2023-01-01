@@ -6,16 +6,13 @@ services:
     image: alpine:3.17.0
     restart: unless-stopped
     command:
-      - /bin/sh
-      - -c
-      - apk add --no-cache socat wireguard-tools && printenv CONFIG > /etc/wireguard/wg0.conf &&
-        /bin/sh -c 'socat udp-listen:53,reuseaddr,fork udp:10.0.0.1:53 &
-        socat tcp-listen:53,reuseaddr,fork tcp:10.0.0.1:53 &' && wg-quick up wg0 &&
-        trap 'exit 0' TERM INT QUIT && sleep infinity & wait $!
+      - /entrypoint.sh
     environment:
       - CONFIG=${CONFIG}
     ports:
       - 51820:51820/udp
+    volumes:
+      - ${PWD}/entrypoint.sh:/entrypoint.sh
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
