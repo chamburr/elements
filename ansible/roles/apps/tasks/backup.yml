@@ -26,7 +26,7 @@
     user: "{{ username }}"
     job: >-
       sudo rclone --config /etc/rclone/rclone.conf purge
-      "minio:elements/_old/{{ inventory_hostname }}/$(date -d '7 day ago' +%F)"
+      "minio:elements/_old/{{ inventory_hostname }}/$(date -d '7 day ago' +\%F)"
     state: present
 
 - name: Add cron for files
@@ -38,5 +38,5 @@
     job: >-
       sudo rclone --config /etc/rclone/rclone.conf sync
       /var/lib/docker/volumes minio:elements/{{ inventory_hostname }} --s3-no-check-bucket
-      --backup-dir "minio:elements/_old/{{ inventory_hostname }}/$(date +%F)"
+      --backup-dir "minio:elements/_old/{{ inventory_hostname }}/$(date +\%F)"
     state: present
