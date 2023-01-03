@@ -1,0 +1,52 @@
+---
+version: "3"
+
+services:
+  ghost:
+    image: ghost:5.26.4-alpine
+    restart: unless-stopped
+    environment:
+      - url=https://areticle.com
+      - database__client=mysql
+      - database__connection__host=mysql
+      - database__connection__port=3306
+      - database__connection__user=root
+      - database__connection__password=
+      - database__connection__database=ghost
+      - mail__transport=SMTP
+      - mail__options__service=Mailgun
+      - mail__options__auth__user=${MAIL_USERNAME}
+      - mail__options__auth__pass=${MAIL_PASSWORD}
+      - logging__level=info
+      - logging__transports=["stdout"]
+    networks:
+      - default
+      - traefik_default
+    volumes:
+      - ghost:/var/lib/ghost/content
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.areticle.loadbalancer.server.port=2368
+      - traefik.http.routers.areticle.rule=Host(`areticle.com`, `www.areticle.com`)
+      - traefik.http.routers.areticle.service=areticle
+      - traefik.http.routers.areticle.middlewares=redirect
+      - traefik.http.routers.areticle.tls=true
+
+  mysql:
+    image: mysql:8.0.31
+    restart: unless-stopped
+    command:
+      - --performance-schema=OFF
+    environment:
+      - MYSQL_DATABASE=ghost
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - mysql:/var/lib/mysql
+
+networks:
+  traefik_default:
+    external: true
+
+volumes:
+  ghost:
+  mysql:
