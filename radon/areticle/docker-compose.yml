@@ -31,6 +31,9 @@ services:
       - traefik.http.routers.areticle.service=areticle
       - traefik.http.routers.areticle.middlewares=redirect
       - traefik.http.routers.areticle.tls=true
+      - traefik.http.routers.areticle.tls.certresolver=letsencrypt
+      - traefik.http.routers.areticle.tls.domains[0].main=areticle.com
+      - traefik.http.routers.areticle.tls.domains[0].sans=*.areticle.com
 
   mysql:
     image: mysql:8.0.31

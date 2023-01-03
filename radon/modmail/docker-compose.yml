@@ -25,8 +25,8 @@ services:
       - traefik.http.routers.modmail.middlewares=redirect
       - traefik.http.routers.modmail.tls=true
       - traefik.http.routers.modmail.tls.certresolver=letsencrypt
-      - traefik.http.routers.templates.tls.domains[0].main=modmail.xyz
-      - traefik.http.routers.templates.tls.domains[0].sans=*.modmail.xyz
+      - traefik.http.routers.modmail.tls.domains[0].main=modmail.xyz
+      - traefik.http.routers.modmail.tls.domains[0].sans=*.modmail.xyz
 
   api:
     # yamllint disable-line rule:line-length
