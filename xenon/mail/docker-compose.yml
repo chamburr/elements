@@ -112,6 +112,7 @@ services:
 
   rspamd:
     image: mailu/rspamd:1.9.45
+    hostname: rspamd
     restart: unless-stopped
     environment:
       - HOST_ADMIN=admin
