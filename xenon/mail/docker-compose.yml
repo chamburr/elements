@@ -3,7 +3,7 @@ version: "3"
 
 services:
   nginx:
-    image: mailu/nginx:1.9.45
+    image: mailu/nginx:1.9.46
     restart: unless-stopped
     environment:
       - HOST_ADMIN=admin
