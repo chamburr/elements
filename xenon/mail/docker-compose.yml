@@ -111,7 +111,7 @@ services:
       - nginx
 
   rspamd:
-    image: mailu/rspamd:1.9.45
+    image: mailu/rspamd:1.9.46
     hostname: rspamd
     restart: unless-stopped
     environment:
