@@ -69,7 +69,7 @@ services:
       - redis
 
   dovecot:
-    image: mailu/dovecot:1.9.49
+    image: mailu/dovecot:1.9.50
     restart: unless-stopped
     environment:
       - HOST_ADMIN=admin
