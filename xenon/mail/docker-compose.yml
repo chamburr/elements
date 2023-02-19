@@ -40,7 +40,7 @@ services:
       disable: true
 
   admin:
-    image: mailu/admin:1.9.49
+    image: mailu/admin:1.9.50
     restart: unless-stopped
     environment:
       - POSTMASTER=postmaster
