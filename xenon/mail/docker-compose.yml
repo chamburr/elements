@@ -6,8 +6,8 @@ services:
     image: mailu/nginx:1.9.50
     restart: unless-stopped
     environment:
-      - HOST_ADMIN=admin
-      - HOST_ANTISPAM_WEBUI=rspamd:11334
+      - ADMIN_ADDRESS=admin
+      - ANTISPAM_WEBUI_ADDRESS=rspamd:11334
       - TLS_FLAVOR=mail-letsencrypt
       - HOSTNAMES=mail.chamburr.com
       - MESSAGE_SIZE_LIMIT=104857600
@@ -43,14 +43,14 @@ services:
     image: mailu/admin:1.9.50
     restart: unless-stopped
     environment:
+      - AUTHSMTP_ADDRESS=postfix
+      - IMAP_ADDRESS=dovecot
+      - POP3_ADDRESS=dovecot
+      - REDIS_ADDRESS=redis
+      - SMTP_ADDRESS=postfix
       - POSTMASTER=postmaster
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
-      - HOST_AUTHSMTP=postfix
-      - HOST_IMAP=dovecot
-      - HOST_POP3=dovecot
-      - HOST_REDIS=redis
-      - HOST_SMTP=postfix
       - WEBMAIL=none
       - RECIPIENT_DELIMITER=+
       - SUBNET=172.16.0.0/12
@@ -72,9 +72,9 @@ services:
     image: mailu/dovecot:1.9.50
     restart: unless-stopped
     environment:
-      - HOST_ADMIN=admin
-      - HOST_ANTISPAM_WEBUI=rspamd:11334
-      - HOST_FRONT=nginx
+      - ADMIN_ADDRESS=admin
+      - ANTISPAM_WEBUI_ADDRESS=rspamd:11334
+      - FRONT_ADDRESS=nginx
       - POSTMASTER=postmaster
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
@@ -90,10 +90,10 @@ services:
     image: mailu/postfix:1.9.50
     restart: unless-stopped
     environment:
-      - HOST_ADMIN=admin
-      - HOST_ANTISPAM_MILTER=rspamd:11332
-      - HOST_FRONT=nginx
-      - HOST_LMTP=dovecot:2525
+      - ADMIN_ADDRESS=admin
+      - ANTISPAM_MILTER_ADDRESS=rspamd:11332
+      - FRONT_ADDRESS=nginx
+      - LMTP_ADDRESS=dovecot:2525
       - REJECT_UNLISTED_RECIPIENT=yes
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
@@ -115,9 +115,8 @@ services:
     hostname: rspamd
     restart: unless-stopped
     environment:
-      - HOST_ADMIN=admin
-      - HOST_REDIS=redis
-      - ANTIVIRUS=none
+      - ADMIN_ADDRESS=admin
+      - REDIS_ADDRESS=redis
       - SUBNET=172.16.0.0/12
     volumes:
       - rspamd:/var/lib/rspamd
