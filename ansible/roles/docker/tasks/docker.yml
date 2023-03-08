@@ -2,7 +2,7 @@
 - name: Add docker key
   ansible.builtin.shell: # noqa: command-instead-of-module
     cmd: |
-      curl -s https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor \
+      set -o pipefail && curl -s https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor \
         > /usr/share/keyrings/docker.gpg
     creates: /usr/share/keyrings/docker.gpg
 

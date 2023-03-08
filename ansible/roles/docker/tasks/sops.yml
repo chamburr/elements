@@ -2,8 +2,8 @@
 - name: Add sops key
   ansible.builtin.shell: # noqa: command-instead-of-module
     cmd: |
-      curl -s https://dl.cloudsmith.io/public/cloudposse-dev/packages/gpg.key | gpg --dearmor \
-        > /usr/share/keyrings/sops.gpg
+      set -o pipefail && curl -s https://dl.cloudsmith.io/public/cloudposse-dev/packages/gpg.key \
+        | gpg --dearmor > /usr/share/keyrings/sops.gpg
     creates: /usr/share/keyrings/sops.gpg
 
 - name: Add sops repository

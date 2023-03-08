@@ -1,7 +1,9 @@
 ---
 - name: Add netmaker key
   ansible.builtin.shell: # noqa: command-instead-of-module
-    cmd: curl -s https://apt.netmaker.org/gpg.key | gpg --dearmor > /usr/share/keyrings/netmaker.gpg
+    cmd: |
+      set -o pipefail && curl -s https://apt.netmaker.org/gpg.key \
+        | gpg --dearmor > /usr/share/keyrings/netmaker.gpg
     creates: /usr/share/keyrings/netmaker.gpg
 
 - name: Add netmaker repository
