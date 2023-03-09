@@ -3,7 +3,7 @@ version: "3"
 
 services:
   node:
-    image: node:19.6.1-alpine
+    image: node:19.7.0-alpine
     restart: unless-stopped
     command:
       - /bin/sh
