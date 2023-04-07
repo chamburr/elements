@@ -8,6 +8,8 @@ services:
     environment:
       - ADMIN_ADDRESS=admin
       - ANTISPAM_ADDRESS=rspamd
+      - IMAP_ADDRESS=dovecot
+      - SECRET_KEY=${SECRET}
       - TLS_FLAVOR=mail-letsencrypt
       - HOSTNAMES=mail.chamburr.com
       - MESSAGE_SIZE_LIMIT=104857600
