@@ -3,11 +3,11 @@ version: "3"
 
 services:
   nginx:
-    image: mailu/nginx:1.9.50
+    image: ghcr.io/mailu/nginx:2.0.1
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
-      - ANTISPAM_WEBUI_ADDRESS=rspamd:11334
+      - ANTISPAM_ADDRESS=rspamd
       - TLS_FLAVOR=mail-letsencrypt
       - HOSTNAMES=mail.chamburr.com
       - MESSAGE_SIZE_LIMIT=104857600
@@ -40,22 +40,19 @@ services:
       disable: true
 
   admin:
-    image: mailu/admin:1.9.50
+    image: ghcr.io/mailu/admin:2.0.1
     restart: unless-stopped
     environment:
-      - AUTHSMTP_ADDRESS=postfix
       - IMAP_ADDRESS=dovecot
-      - POP3_ADDRESS=dovecot
       - REDIS_ADDRESS=redis
       - SMTP_ADDRESS=postfix
+      - SUBNET=172.16.0.0/12
+      - SECRET_KEY=${SECRET}
       - POSTMASTER=postmaster
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
       - WEBMAIL=none
       - RECIPIENT_DELIMITER=+
-      - SUBNET=172.16.0.0/12
-      - PASSWORD_SCHEME=PBKDF2
-      - SECRET_KEY=${SECRET}
       - MESSAGE_RATELIMIT=200/hour
       - MESSAGE_RATELIMIT_EXEMPTION=
       - AUTH_RATELIMIT_IP=60/hour
@@ -69,12 +66,14 @@ services:
       - redis
 
   dovecot:
-    image: mailu/dovecot:1.9.50
+    image: ghcr.io/mailu/dovecot:2.0.1
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
-      - ANTISPAM_WEBUI_ADDRESS=rspamd:11334
+      - ANTISPAM_ADDRESS=rspamd
       - FRONT_ADDRESS=nginx
+      - SUBNET=172.16.0.0/12
+      - SECRET_KEY=${SECRET}
       - POSTMASTER=postmaster
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
@@ -87,18 +86,18 @@ services:
       - nginx
 
   postfix:
-    image: mailu/postfix:1.9.50
+    image: ghcr.io/mailu/postfix:2.0.1
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
-      - ANTISPAM_MILTER_ADDRESS=rspamd:11332
-      - FRONT_ADDRESS=nginx
-      - LMTP_ADDRESS=dovecot:2525
+      - ANTISPAM_ADDRESS=rspamd
+      - IMAP_ADDRESS=dovecot
+      - SUBNET=172.16.0.0/12
+      - SECRET_KEY=${SECRET}
       - REJECT_UNLISTED_RECIPIENT=yes
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
       - MESSAGE_SIZE_LIMIT=104857600
-      - SUBNET=172.16.0.0/12
       - RECIPIENT_DELIMITER=+
       - RELAYHOST=${RELAY_HOST}:${RELAY_PORT}
       - RELAYUSER=${RELAY_USERNAME}
@@ -111,13 +110,14 @@ services:
       - nginx
 
   rspamd:
-    image: mailu/rspamd:1.9.50
+    image: ghcr.io/mailu/rspamd:2.0.1
     hostname: rspamd
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
       - REDIS_ADDRESS=redis
       - SUBNET=172.16.0.0/12
+      - SECRET_KEY=${SECRET}
     volumes:
       - rspamd:/var/lib/rspamd
     healthcheck:
