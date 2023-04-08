@@ -68,7 +68,7 @@ services:
       - redis
 
   dovecot:
-    image: ghcr.io/mailu/dovecot:2.0.1
+    image: ghcr.io/mailu/dovecot:2.0.3
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
