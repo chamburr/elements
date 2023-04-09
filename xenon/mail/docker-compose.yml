@@ -3,7 +3,7 @@ version: "3"
 
 services:
   nginx:
-    image: ghcr.io/mailu/nginx:2.0.3
+    image: ghcr.io/mailu/nginx:2.0.4
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
