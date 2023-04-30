@@ -14,7 +14,7 @@
     },
     {
       "matchDatasources": ["docker"],
-      "matchPackageNames": ["eqalpha/keydb"],
+      "matchPackageNames": ["eqalpha/keydb", "rabbitmq"],
       "automerge": false
     }
   ]
