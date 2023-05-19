@@ -4,10 +4,10 @@
     name: "{{ item }}"
     state: absent
   loop: "{{ remove_snap }}"
-  register: snap_remove
+  register: common_snap_remove
   failed_when:
-    - snap_remove.failed
-    - "'Failed to find required executable' not in snap_remove.msg"
+    - common_snap_remove.failed
+    - "'Failed to find required executable' not in common_snap_remove.msg"
 
 - name: Delete snap directory
   ansible.builtin.file:
