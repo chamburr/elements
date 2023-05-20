@@ -8,7 +8,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - npm install -g miniflare && miniflare /config/worker.js
+      - npm install -g miniflare@2 && miniflare /config/worker.js
     environment:
       - SECRET=${SECRET}
     networks:
