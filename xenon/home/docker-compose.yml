@@ -3,8 +3,8 @@ version: "3"
 
 services:
   chamburr:
-    image: >-
-      chamburr/chamburr.com:latest@sha256:8c004adb2db461bd36fedb69a159d5a1aef379725a99b78b22906caffe1312be
+    # yamllint disable-line rule:line-length
+    image: chamburr/chamburr.com:latest@sha256:8c004adb2db461bd36fedb69a159d5a1aef379725a99b78b22906caffe1312be
     restart: unless-stopped
     networks:
       - default
