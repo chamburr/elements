@@ -88,7 +88,7 @@ services:
       - --server-threads 4
 
   rabbitmq:
-    image: rabbitmq:3.11.14-alpine
+    image: rabbitmq:3.12.1-alpine
     restart: unless-stopped
 
 networks:
