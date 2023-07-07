@@ -124,7 +124,7 @@ class BodyRewriter {
     `,
       {
         html: true,
-      }
+      },
     );
   }
 }
@@ -144,7 +144,7 @@ class HeadRewriter {
     `,
       {
         html: true,
-      }
+      },
     );
   }
 }
