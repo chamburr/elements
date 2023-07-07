@@ -1,6 +1,6 @@
 const DOMAIN = "notes.chamburr.com";
 const LANG = "en";
-const HOME_URL = `https://www.craft.do/s/vPB5VHJ4Vvl9lV`;
+const HOME_URL = `https://www.craft.me/s/vPB5VHJ4Vvl9lV`;
 const FAVICON_URL = "https://chamburr.com/favicon.ico";
 
 addEventListener("fetch", (event) => {
