@@ -8,7 +8,7 @@ services:
     command:
       - /bin/sh
       - -c
-      - npm install -g miniflare@2 && miniflare /config/worker.js
+      - npm install -g miniflare@2 && miniflare /app/worker.js
     environment:
       - SECRET=${SECRET}
     networks:
@@ -17,7 +17,7 @@ services:
     expose:
       - "8787"
     volumes:
-      - ${PWD}/worker.js:/config/worker.js
+      - ${PWD}/worker.js:/app/worker.js
     labels:
       - traefik.enable=true
       - traefik.http.services.notes.loadbalancer.server.port=8787
