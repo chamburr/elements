@@ -1,0 +1,33 @@
+---
+version: "3"
+
+services:
+  python:
+    image: python:3.11.4-alpine
+    restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - pip3 install flask && python3 /app/main.py
+    environment:
+      - GRADERS=${GRADERS}
+    networks:
+      - default
+      - traefik_default
+    expose:
+      - "5000"
+    volumes:
+      - ${PWD}/main.py:/app/main.py
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.secret-trg-grader.loadbalancer.server.port=5000
+      - traefik.http.routers.secret-trg-grader.rule=Host(`secret-trg-grader.chamburr.com`)
+      - traefik.http.routers.secret-trg-grader.service=secret-trg-grader
+      - traefik.http.routers.secret-trg-grader.tls=true
+      - traefik.http.routers.secret-trg-grader.tls.certresolver=letsencrypt
+      - traefik.http.routers.secret-trg-grader.tls.domains[0].main=chamburr.com
+      - traefik.http.routers.secret-trg-grader.tls.domains[0].sans=*.chamburr.com
+
+networks:
+  traefik_default:
+    external: true
