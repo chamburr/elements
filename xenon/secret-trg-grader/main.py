@@ -175,8 +175,8 @@ def grader_eruces_yrev_ton(ans):
 
     ans = ans.upper()
     cc = rail_fence(vignere(ans, 'GVSOIQMCA'))
-    cc = rail_fence(vignere(ans, 'OFEJI'))
-    cc = rail_fence(vignere(ans, 'MVAQEIQRTG'))
+    cc = rail_fence(vignere(cc, 'OFEJI'))
+    cc = rail_fence(vignere(cc, 'MVAQEIQRTG'))
     l = lcs(ans[::-1], cc)
 
     if l >= 8:
