@@ -170,6 +170,9 @@ def grader_eruces_yrev_ton(ans):
     if not 16 <= len(ans) <= 32:
         return '0'
 
+    if not ans.isalpha():
+        return '0'
+
     ans = ans.upper()
     cc = rail_fence(vignere(ans, 'GVSOIQMCA'))
     cc = rail_fence(vignere(ans, 'OFEJI'))
