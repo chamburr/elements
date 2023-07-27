@@ -1,6 +1,5 @@
 import os
 
-from collections import defaultdict
 from flask import Flask, request
 
 
@@ -14,6 +13,14 @@ def fixed_grader(a, case=True):
     else:
         b = a.casefold()
         return lambda s: '1' if s.casefold() == b else '0'
+
+
+def startswith_grader(a, case=True):
+    if case:
+        return lambda s: '1' if s.startswith(a) else '0'
+    else:
+        b = a.casefold()
+        return lambda s: '1' if s.casefold().startswith(b) else '0'
 
 
 def grader_str_weave(ans):
@@ -65,74 +72,116 @@ def grader_scrambled_gryphon_eggs(ans):
     return '1' if s == 'GRIFFLESGRIFFLESGRIFFLESGRIFFLESGRIFFLES' else '0'
 
 
-def grader_sched(ans):
-    ans = [c for c in ans if c in 'qwertyuiopasdfghjklzxcvbnm']
-    if len(ans) != 26:
-        return '-1'
+def grader_painted_jezebel(ans):
+    def f(x):
+        return (x + 16) % 16
 
-    ds = { 'v': 0, 'l': 1, 'u': 2, 'h': 3, 'c': 4, 'j': 5, 'a': 6, 'b': 7, 'n': 8, 'f': 9, 'm': 10, 't': 11, 's': 12, 'o': 13, 'z': 14, 'q': 15, 'i': 16, 'y': 17, 'r': 18, 'e': 19, 'g': 20, 'x': 21, 'p': 22, 'd': 23, 'w': 24, 'k': 25 }
-    _rs = [('a', 'ch'), ('b', 'a'), ('d', 'c'), ('g', 'z'), ('i', 'jnq'), ('k', 'di'), ('l', 'hm'), ('m', 'nr'), ('o', 'km'), ('s', 'l'), ('t', 'ay'), ('u', 'y'), ('v', 'i'), ('x', 'dqvy'), ('z', 'j')]
-    rs = defaultdict(str)
-    for k, v in _rs:
-        rs[k] = v
-    done = defaultdict(bool)
-    happy = 0
+    s = list('p ajienzteebde l')
+    p = 0
 
-    for i, c in enumerate(ans):
-        happy += abs(ds[c] - i)
+    for c in ans.upper():
+        match c:
+            case 'R':
+                x = f(p)
+                y = f(p + 1)
+                s[x], s[y] = s[y], s[x]
+                p = y
+            case 'L':
+                x = f(p)
+                y = f(p - 1)
+                s[x], s[y] = s[y], s[x]
+                p = y
+            case 'S':
+                x = f(p - 1)
+                y = f(p + 1)
+                s[x], s[y] = s[y], s[x]
+            case 'C':
+                x1 = f(p)
+                y1 = f(p + 8)
+                x2 = f(p + 4)
+                y2 = f(p + 12)
+                s[x1], s[y1] = s[y1], s[x1]
+                s[x2], s[y2] = s[y2], s[x2]
+                p = y1
 
-        if done[c]:
-            return '-1'
-        done[c] = True
-
-        for r in rs[c]:
-            if not done[r]:
-                return '-1'
-
-    assert len(rs) == 26
-
-    return f'{happy}'
+    if ''.join(s) == 'painted jezebel ':
+        return len(ans)
+    return 0
 
 
-def grader_nat_weri_sekure(ans):
-    def g(s):
-        def h(s):
-            return s[::-1] if s.count('1') == 1 else s
-        s1, s2 = s[:24], s[24:]
-        s1, s2 = [('0' if c == '1' else '1') for c in s1], s2[::-1]
-        s3 = ''.join(c1 + c2 for c1, c2 in zip(s1, s2))
-        l = []
-        for i in range(0, 45, 5):
-            l.append(h(s3[i:i+3]))
-            l.append(s3[i+4:i+2:-1])
-        l.append(h(s3[45:]))
-        return ''.join(l)
+def grader_insurrection_interception(ans):
+    def f(s):
+        return sum(vals[c] * (i + 1) for i, c in enumerate(s)) % 4000
 
-    try:
-        n, bs, *_ = ans.split(' ')
-        n = int(n)
-    except ValueError:
-        return '-1'
-    if len(bs) != 48:
-        return '-1'
-    if not 4 <= n <= 128:
-        return '-1'
-    for c in bs:
-        if c not in '01':
-            return '-1'
+    if len(ans) != 12:
+        return '0'
 
-    proc = bs
-    for _ in range(n):
-        proc = g(proc)
+    vals = dict((' ABCDEFGHIJKLMNOPQRSTUVWXYZ '[i], i) for i in range(1,28))
+    expected = f('STRIKE AT EIGHT ON THE NINTH OF MAY')
+    actual = f(f'ALL HAIL EMPEROR TEDDY {ans.upper()}')
 
-    dist = 0
-    for x, y in zip(bs, proc):
-        if x != y:
-            dist += 1
+    if expected == actual:
+        return '1'
+    return '0'
 
-    if dist <= 12:
-        return f'{dist}'
-    return '-1'
+
+def grader_eruces_yrev_ton(ans):
+    def vignere(s, k):
+        c = []
+        for i in range(len(s)):
+            x = (ord(s[i]) +
+                 ord(k[i % len(k)])) % 26
+            x += ord('A')
+            c.append(chr(x))
+        return c
+    def rail_fence(s):
+        rail = [['\n' for _ in range(len(s))]
+                    for _ in range(3)]
+        dir_down = False
+        row, col = 0, 0
+        for i in range(len(s)):
+            if (row == 0) or (row == 2):
+                dir_down = not dir_down
+            rail[row][col] = s[i]
+            col += 1
+            if dir_down:
+                row += 1
+            else:
+                row -= 1
+        c = []
+        for i in range(3):
+            for j in range(len(s)):
+                if rail[i][j] != '\n':
+                    c.append(rail[i][j])
+        return c
+    def lcs(x, y):
+        m, n = len(x), len(y)
+        dp = [[-1] * (n+1) for _ in range(m+1)]
+        for i in range(m+1):
+            for j in range(n+1):
+                if i == 0 or j == 0:
+                    dp[i][j] = 0
+                elif x[i-1] == y[j-1]:
+                    dp[i][j] = dp[i-1][j-1]+1
+                else:
+                    dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+        return dp[m][n]
+
+    if not 16 <= len(ans) <= 32:
+        return '0'
+
+    if not ans.isalpha():
+        return '0'
+
+    ans = ans.upper()
+    cc = rail_fence(vignere(ans, 'GVSOIQMCA'))
+    cc = rail_fence(vignere(ans, 'OFEJI'))
+    cc = rail_fence(vignere(ans, 'MVAQEIQRTG'))
+    l = lcs(ans[::-1], cc)
+
+    if l >= 8:
+        return f'{l}'
+    return '0'
 
 
 @app.route('/', methods=['GET'])
