@@ -103,14 +103,6 @@ def grader_painted_jezebel(ans):
                 x = f(p - 1)
                 y = f(p + 1)
                 s[x], s[y] = s[y], s[x]
-            case 'C':
-                x1 = f(p)
-                y1 = f(p + 8)
-                x2 = f(p + 4)
-                y2 = f(p + 12)
-                s[x1], s[y1] = s[y1], s[x1]
-                s[x2], s[y2] = s[y2], s[x2]
-                p = y1
 
     if ''.join(s) == 'painted jezebel ':
         if len(ans) <= 60:
@@ -139,14 +131,12 @@ def grader_eruces_yrev_ton(ans):
     def vignere(s, k):
         c = []
         for i in range(len(s)):
-            x = (ord(s[i]) +
-                 ord(k[i % len(k)])) % 26
+            x = (ord(s[i]) + ord(k[i % len(k)])) % 26
             x += ord('A')
             c.append(chr(x))
         return c
     def rail_fence(s):
-        rail = [['\n' for _ in range(len(s))]
-                    for _ in range(3)]
+        rail = [['\n' for _ in range(len(s))] for _ in range(3)]
         dir_down = False
         row, col = 0, 0
         for i in range(len(s)):
@@ -177,7 +167,7 @@ def grader_eruces_yrev_ton(ans):
                     dp[i][j] = max(dp[i-1][j], dp[i][j-1])
         return dp[m][n]
 
-    if not 16 <= len(ans) <= 32:
+    if len(ans) != 32:
         return 0
 
     if not ans.isalpha():
@@ -189,8 +179,8 @@ def grader_eruces_yrev_ton(ans):
     cc = rail_fence(vignere(cc, 'MVAQEIQRTG'))
     l = lcs(ans[::-1], cc)
 
-    if l >= 8:
-        return 0  # f'{l}'
+    if l >= 16:
+        return 1
     return 0
 
 
