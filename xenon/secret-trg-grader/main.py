@@ -9,18 +9,18 @@ graders = {}
 
 def fixed_grader(a, case=True):
     if case:
-        return lambda s: '1' if s == a else '0'
+        return lambda s: 1 if s == a else 0
     else:
         b = a.casefold()
-        return lambda s: '1' if s.casefold() == b else '0'
+        return lambda s: 1 if s.casefold() == b else 0
 
 
 def startswith_grader(a, case=True):
     if case:
-        return lambda s: '1' if s.startswith(a) else '0'
+        return lambda s: 1 if s.startswith(a) else 0
     else:
         b = a.casefold()
-        return lambda s: '1' if s.casefold().startswith(b) else '0'
+        return lambda s: 1 if s.casefold().startswith(b) else 0
 
 
 def grader_str_weave(ans):
@@ -53,8 +53,10 @@ def grader_str_weave(ans):
                 sel = ''
 
     if f == 'raffles <3 computer science':
-        return f'{t}'
-    return '-1'
+        if t <= 1250:
+            return 1
+        return max(0.2, 3 - 0.0016 * t)
+    return 0
 
 
 def grader_scrambled_gryphon_eggs(ans):
@@ -69,7 +71,13 @@ def grader_scrambled_gryphon_eggs(ans):
             case '3':
                 s = s.replace('LESIFF', 'IFFLES', 1)
 
-    return '1' if s == 'GRIFFLESGRIFFLESGRIFFLESGRIFFLESGRIFFLES' else '0'
+    count = s.count('GRIFFLES')
+
+    if count > 0:
+        if count == 5:
+            return 1
+        return 0.2 * count
+    return 0
 
 
 def grader_painted_jezebel(ans):
@@ -105,7 +113,9 @@ def grader_painted_jezebel(ans):
                 p = y1
 
     if ''.join(s) == 'painted jezebel ':
-        return len(ans)
+        if len(ans) <= 60:
+            return 1
+        return max(0.2, 2.2 - 0.02 * len(s))
     return 0
 
 
@@ -114,15 +124,15 @@ def grader_insurrection_interception(ans):
         return sum(vals[c] * (i + 1) for i, c in enumerate(s)) % 4000
 
     if len(ans) != 12:
-        return '0'
+        return 0
 
     vals = dict((' ABCDEFGHIJKLMNOPQRSTUVWXYZ '[i], i) for i in range(1,28))
     expected = f('STRIKE AT EIGHT ON THE NINTH OF MAY')
     actual = f(f'ALL HAIL EMPEROR TEDDY {ans.upper()}')
 
     if expected == actual:
-        return '1'
-    return '0'
+        return 1
+    return 0
 
 
 def grader_eruces_yrev_ton(ans):
@@ -168,10 +178,10 @@ def grader_eruces_yrev_ton(ans):
         return dp[m][n]
 
     if not 16 <= len(ans) <= 32:
-        return '0'
+        return 0
 
     if not ans.isalpha():
-        return '0'
+        return 0
 
     ans = ans.upper()
     cc = rail_fence(vignere(ans, 'GVSOIQMCA'))
@@ -180,8 +190,8 @@ def grader_eruces_yrev_ton(ans):
     l = lcs(ans[::-1], cc)
 
     if l >= 8:
-        return f'{l}'
-    return '0'
+        return 0  # f'{l}'
+    return 0
 
 
 @app.route('/', methods=['GET'])
