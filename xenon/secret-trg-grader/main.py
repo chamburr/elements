@@ -107,7 +107,7 @@ def grader_painted_jezebel(ans):
     if ''.join(s) == 'painted jezebel ':
         if len(ans) <= 60:
             return 1
-        return max(0.2, 2.2 - 0.02 * len(s))
+        return max(0.2, 2.2 - 0.02 * len(ans))
     return 0
 
 
