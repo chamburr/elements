@@ -1,4 +1,5 @@
 import os
+import re
 
 from flask import Flask, request
 
@@ -56,6 +57,107 @@ def grader_str_weave(ans):
         if t <= 1250:
             return 1
         return max(0.2, 3 - 0.0016 * t)
+    return 0
+
+
+def grader_2048(ans):
+    size = 6
+
+    def create_null(row, col):
+        return [[0 for i in range(col)] for j in range(row)]
+    def move(state, direction):
+        done = create_null(size,size)
+        if direction == 'u':
+            for times in range(10):
+                for j in range(size):
+                    for i in range(1,size):
+                        if done[i][j]:
+                            continue
+                        elif state[i][j] == 0:
+                            continue
+                        elif state[i-1][j] == 0:
+                            state[i-1][j] = state[i][j]
+                            state[i][j] = 0
+                        elif state[i-1][j] == state[i][j] and done[i-1][j] == 0:
+                            state[i-1][j] += state[i][j]
+                            state[i][j] = 0
+                            done[i-1][j] = 1
+        elif direction == 'l':
+            for times in range(10):
+                for i in range(size):
+                    for j in range(1,size):
+                        if done[i][j]:
+                            continue
+                        elif state[i][j] == 0:
+                            continue
+                        elif state[i][j-1] == 0:
+                            state[i][j-1] = state[i][j]
+                            state[i][j] = 0
+                        elif state[i][j-1] == state[i][j] and done[i][j-1] == 0:
+                            state[i][j-1] += state[i][j]
+                            state[i][j] = 0
+                            done[i][j-1] = 1
+        elif direction == 'r':
+            for times in range(10):
+                for i in range(size):
+                    for j in range(size-2,-1,-1):
+                        if done[i][j]:
+                            continue
+                        elif state[i][j] == 0:
+                            continue
+                        elif state[i][j+1] == 0:
+                            state[i][j+1] = state[i][j]
+                            state[i][j] = 0
+                        elif state[i][j+1] == state[i][j] and done[i][j+1] == 0:
+                            state[i][j+1] += state[i][j]
+                            state[i][j] = 0
+                            done[i][j+1] = 1
+        elif direction == 'd':
+            for times in range(10):
+                for j in range(size):
+                    for i in range(size-2,-1,-1):
+                        if done[i][j]:
+                            continue
+                        elif state[i][j] == 0:
+                            continue
+                        elif state[i+1][j] == 0:
+                            state[i+1][j] = state[i][j]
+                            state[i][j] = 0
+                        elif state[i+1][j] == state[i][j] and done[i+1][j] == 0:
+                            state[i+1][j] += state[i][j]
+                            state[i][j] = 0
+                            done[i+1][j] = 1
+        return state
+    def genrand(state):
+        if (state[size-1][0] != 0):
+            return False
+        state[size-1][0] = 2
+        return state
+    def win(state):
+        for i in range(size):
+            for j in range(size):
+                if state[i][j] == 2048:
+                    return True
+        return False
+
+    state = create_null(size,size)
+    state = genrand(state)
+    moves = [(m.group(1), int(m.group(2) or 1)) for m in re.finditer(r'([uldr])(\d*)',ans)]
+    total = 0
+
+    for (where, times) in moves:
+        total += times
+        for _ in range(times):
+            state = move(state, where)
+            state = genrand(state)
+            if state is False:
+                return 0
+    for i in range(size):
+        for j in range(size):
+            if state[i][j] == 2048:
+                if total <= 1050:
+                    return 1
+                return max(0.2, 3.1 - 0.002 * total)
     return 0
 
 
