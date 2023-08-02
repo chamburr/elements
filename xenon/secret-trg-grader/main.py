@@ -16,14 +16,6 @@ def fixed_grader(a, case=True):
         return lambda s: 1 if s.casefold() == b else 0
 
 
-def startswith_grader(a, case=True):
-    if case:
-        return lambda s: 1 if s.startswith(a) else 0
-    else:
-        b = a.casefold()
-        return lambda s: 1 if s.casefold().startswith(b) else 0
-
-
 def grader_str_weave(ans):
     f = ''
     ss = ['auspicium melioris aevi', '077146317705149305190', 'teddy world domination', '<html>woo css!</html>', '+++++ moor tarbet +++++', 'haerzbugpnmysargcojhnmmrbyipwiyqbsascu', 'rgs celebrates 143 years', 'random stuff', 'ri debate', 'lookie it’s a fishie <><']
