@@ -29,5 +29,5 @@
 - name: Join netmaker network
   ansible.builtin.command:
     cmd: netclient join -t {{ lookup('env', 'NETMAKER_TOKEN') }}
-    creates: /etc/netclient/netmaker.conf
+    creates: /etc/netclient/netclient.yml
   when: lookup('env', 'NETMAKER_TOKEN') is defined
