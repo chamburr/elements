@@ -1,4 +1,10 @@
 ---
+- name: Enable dns service
+  ansible.builtin.service:
+    name: systemd-resolved
+    enabled: true
+    state: started
+
 - name: Update dns configuration
   ansible.builtin.lineinfile:
     path: /etc/systemd/resolved.conf
@@ -8,6 +14,8 @@
   loop:
     - regexp: ^#?DNS=
       line: DNS={{ dns_servers | join(' ') }}
+    - regexp: ^#?Domains=
+      line: Domains=~.
     - regexp: ^#?DNSSEC=
       line: DNSSEC=yes
   notify: Restart dns service
