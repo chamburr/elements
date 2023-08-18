@@ -1,21 +1,22 @@
 ---
-- name: Enable dns service
+- name: Disable dns service
   ansible.builtin.service:
     name: systemd-resolved
-    enabled: true
-    state: started
+    enabled: false
+    state: stopped
 
-- name: Update dns configuration
-  ansible.builtin.lineinfile:
-    path: /etc/systemd/resolved.conf
-    regexp: "{{ item.regexp }}"
-    line: "{{ item.line }}"
-    state: present
+- name: Delete dns from ifupdown
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: absent
   loop:
-    - regexp: ^#?DNS=
-      line: DNS={{ dns_servers | join(' ') }}
-    - regexp: ^#?Domains=
-      line: Domains=~.
-    - regexp: ^#?DNSSEC=
-      line: DNSSEC=yes
-  notify: Restart dns service
+    - /etc/network/if-up.d/resolved
+    - /etc/network/if-down.d/resolved
+
+- name: Copy resolv configuration
+  ansible.builtin.template:
+    src: resolv.conf.j2
+    dest: /etc/resolv.conf
+    owner: root
+    group: root
+    mode: 0644
