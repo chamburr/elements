@@ -55,6 +55,7 @@ services:
       - HOSTNAMES=mail.chamburr.com
       - WEBMAIL=none
       - RECIPIENT_DELIMITER=+
+      - DKIM_PATH=/data/dkim/{domain}.key
       - MESSAGE_RATELIMIT=200/hour
       - MESSAGE_RATELIMIT_EXEMPTION=
       - AUTH_RATELIMIT_IP=60/hour
