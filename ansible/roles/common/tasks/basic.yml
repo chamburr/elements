@@ -4,6 +4,18 @@
     name: "{{ inventory_hostname }}"
     use: systemd
 
+- name: Preserve hostname
+  ansible.builtin.template:
+    src: 99_hostname.cfg.j2
+    dest: /etc/cloud/cloud.cfg.d/99_hostname.cfg
+    owner: root
+    group: root
+    mode: 0644
+  register: common_hostname_preserve
+  failed_when:
+    - common_hostname_preserve.failed
+    - "'does not exist' not in common_hostname_preserve.msg"
+
 - name: Set timezone
   community.general.timezone:
     name: "{{ timezone }}"
