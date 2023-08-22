@@ -7,7 +7,6 @@ services:
     restart: unless-stopped
     command:
       - --api.dashboard=false
-      - --api.insecure=false
       - --providers.docker=true
       - --providers.docker.exposedbydefault=false
       - --providers.docker.network=traefik_default
@@ -22,6 +21,7 @@ services:
       - --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
       - --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,1.0.0.1:53
       - --serverstransport.insecureskipverify=true
+      - --global.checknewversion=false
     environment:
       - EMAIL=${EMAIL}
       - CF_API_EMAIL=${CLOUDFLARE_EMAIL}
