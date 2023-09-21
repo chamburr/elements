@@ -1,9 +1,9 @@
 ---
-timezone: America/Los_Angeles
+common_timezone: America/Los_Angeles
 
-swap_size: 4096
+common_swap_size: 4096
 
-firewall_services:
+network_firewall_services:
   22/tcp: allow
   80/tcp: allow
   443/tcp: allow

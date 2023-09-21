@@ -18,7 +18,7 @@
 
 - name: Set timezone
   community.general.timezone:
-    name: "{{ timezone }}"
+    name: "{{ common_timezone }}"
 
 - name: Configure sysctl
   ansible.posix.sysctl:

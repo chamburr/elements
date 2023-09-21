@@ -3,7 +3,10 @@
   community.general.snap:
     name: "{{ item }}"
     state: absent
-  loop: "{{ remove_snap }}"
+  loop:
+    - lxd
+    - core20
+    - snapd
   register: common_snap_remove
   failed_when:
     - common_snap_remove.failed
@@ -16,13 +19,13 @@
 
 - name: Remove packages
   ansible.builtin.apt:
-    name: "{{ remove_packages }}"
+    name: "{{ common_remove_packages }}"
     purge: true
     state: absent
 
 - name: Install packages
   ansible.builtin.apt:
-    name: "{{ packages }}"
+    name: "{{ common_packages }}"
     update_cache: true
     state: present
 

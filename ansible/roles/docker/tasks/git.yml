@@ -1,8 +1,9 @@
 ---
 - name: Clone repository
-  become_user: "{{ username }}"
+  become: true
+  become_user: "{{ common_username }}"
   ansible.builtin.git:
-    repo: "{{ git_repository }}"
-    version: "{{ git_branch }}"
-    dest: /home/{{ username }}/{{ git_name }}
+    repo: "{{ docker_git_repository }}"
+    version: "{{ docker_git_branch }}"
+    dest: /home/{{ common_username }}/{{ docker_git_name }}
     update: false

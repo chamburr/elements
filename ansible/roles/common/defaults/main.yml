@@ -1,18 +1,13 @@
 ---
-timezone: Etc/UTC
+common_timezone: Etc/UTC
 
-remove_snap:
-  - lxd
-  - core20
-  - snapd
-
-remove_packages:
+common_remove_packages:
   - apport
   - landscape-common
   - lxd-agent-loader
   - snapd
 
-packages:
+common_packages:
   - iotop
   - iperf3
   - jq
@@ -23,12 +18,12 @@ packages:
   - tree
   - unzip
 
-swap_path: /swapfile
-swap_size: 2048
-swap_swappiness: 60
+common_swap_path: /swapfile
+common_swap_size: 2048
+common_swap_swappiness: 60
 
-default_username: ubuntu
+common_default_username: ubuntu
 
-username: user
-password: "*"
-ssh_keys: []
+common_username: user
+common_password: "*"
+common_ssh_keys: []

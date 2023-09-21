@@ -23,7 +23,7 @@
     name: Purge backup
     minute: "0"
     hour: "0"
-    user: "{{ username }}"
+    user: "{{ common_username }}"
     job: >-
       sudo rclone --config /etc/rclone/rclone.conf purge
       "minio:elements/_old/{{ inventory_hostname }}/$(date -d '7 day ago' +\%F)"
@@ -34,7 +34,7 @@
     name: Backup files
     minute: "5"
     hour: "0"
-    user: "{{ username }}"
+    user: "{{ common_username }}"
     job: >-
       sudo rclone --config /etc/rclone/rclone.conf sync
       /var/lib/docker/volumes minio:elements/{{ inventory_hostname }} --s3-no-check-bucket

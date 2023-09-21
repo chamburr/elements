@@ -1,9 +1,9 @@
 ---
-timezone: Asia/Singapore
+common_timezone: Asia/Singapore
 
-swap_size: 2048
+common_swap_size: 2048
 
-firewall_services:
+network_firewall_services:
   22/tcp: allow
   25/tcp: allow
   80/tcp: allow

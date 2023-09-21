@@ -10,7 +10,7 @@
     rule: "{{ item.value }}"
     port: "{{ item.key.split('/')[0] }}"
     proto: "{{ item.key.split('/')[1] }}"
-  with_dict: "{{ firewall_services }}"
+  with_dict: "{{ network_firewall_services }}"
 
 - name: Delete firewall services
   community.general.ufw:
