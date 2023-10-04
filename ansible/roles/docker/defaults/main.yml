@@ -1,4 +1,4 @@
 ---
 docker_git_name: elements
 docker_git_repository: https://github.com/chamburr/elements
-docker_git_branch: master
+docker_git_branch: main

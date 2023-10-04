@@ -11,7 +11,7 @@ steps:
       - echo "$SSH_PRIVATE_KEY" > /tmp/id_ed25519
       - chmod 400 /tmp/id_ed25519
       - ./scripts/ansible.sh all -a "chdir=/home/chamburr/elements
-        /bin/sh -c 'git fetch --prune && git reset --hard origin/master &&
+        /bin/sh -c 'git fetch --prune && git reset --hard origin/main &&
         AGE_KEY=$AGE_KEY AGE_RECIPIENTS=$AGE_RECIPIENTS ./scripts/deploy.sh'"
     environment:
       ANSIBLE_FORCE_COLOR: true
@@ -28,7 +28,7 @@ trigger:
   event:
     - push
   branch:
-    - master
+    - main
   paths:
     - ansible/hosts.yml
     - common/**/*
