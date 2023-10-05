@@ -72,7 +72,7 @@ services:
       - rabbitmq
 
   postgres:
-    image: postgres:15.4-alpine
+    image: postgres:16.0-alpine
     restart: unless-stopped
     environment:
       - POSTGRES_DB=modmail
