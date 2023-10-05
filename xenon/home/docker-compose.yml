@@ -4,7 +4,7 @@ version: "3"
 services:
   chamburr:
     # yamllint disable-line rule:line-length
-    image: chamburr/chamburr.com:latest@sha256:041b72407eca6b6bf6592c22222c4556aaf44dde71680b9e8d12c242a0d3af00
+    image: chamburr/chamburr.com:latest@sha256:641aba5c54316ce74a3ab422e52b453b2af32619b3f947df7c57049453949f8f
     restart: unless-stopped
     networks:
       - default
