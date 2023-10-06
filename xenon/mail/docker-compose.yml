@@ -113,7 +113,7 @@ services:
       - nginx
 
   rspamd:
-    image: ghcr.io/mailu/rspamd:2.0.24
+    image: ghcr.io/mailu/rspamd:2.0.25
     hostname: rspamd
     restart: unless-stopped
     environment:
