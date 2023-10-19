@@ -44,7 +44,7 @@ services:
 
   bot:
     # yamllint disable-line rule:line-length
-    image: chamburr/modmail-bot:latest@sha256:2fbaeae070d2d9cb70fb442efa8206ae72373f8613e20d159b773f688a5f1b84
+    image: chamburr/modmail-bot:latest@sha256:6eb5884c7e0bb8e4c61ddb3ebffd7e12c1df553a8857f2dd91cc1ce1cd318d6e
     restart: unless-stopped
     command:
       - /bin/sh
