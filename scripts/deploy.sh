@@ -26,5 +26,8 @@ run() {
   docker image prune --all --force
 }
 
-prepare
-run
+(
+  flock 200
+  prepare
+  run
+) 200>/var/lock/docker-compose.lock
