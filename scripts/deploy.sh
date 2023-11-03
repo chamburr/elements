@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 prepare() {
   export SOPS_AGE_KEY="$AGE_KEY"
