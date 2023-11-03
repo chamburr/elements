@@ -59,7 +59,7 @@ services:
       - rabbitmq
 
   dispatch:
-    image: chamburr/twilight-dispatch:0.4.5
+    image: chamburr/twilight-dispatch:0.4.6
     restart: unless-stopped
     command:
       - /bin/sh
