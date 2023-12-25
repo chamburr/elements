@@ -1,7 +1,8 @@
 #!/bin/sh
 
 startup() {
-  apk add --no-cache socat wireguard-tools
+  apk add --no-cache iptables wireguard-tools
+  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.18/main socat=1.7.4.4-r1
 
   printenv CONFIG > /etc/wireguard/wg0.conf
 
