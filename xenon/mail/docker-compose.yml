@@ -89,7 +89,7 @@ services:
       - nginx
 
   postfix:
-    image: ghcr.io/mailu/postfix:2.0.36
+    image: ghcr.io/mailu/postfix:2.0.37
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
