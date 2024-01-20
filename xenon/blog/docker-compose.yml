@@ -39,7 +39,7 @@ services:
       - traefik.http.routers.blog.tls.domains[0].sans=*.chamburr.com
 
   mysql:
-    image: mysql:8.2.0
+    image: mysql:8.3.0
     restart: unless-stopped
     command:
       - --performance-schema=OFF
