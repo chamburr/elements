@@ -52,6 +52,8 @@ services:
       - printenv CONFIG > /app/.env && ./bin/entrypoint.sh
     environment:
       - CONFIG=${CONFIG}
+      - REDIS_HOST=redis
+      - RABBIT_HOST=rabbitmq
     depends_on:
       - dispatch
       - postgres
