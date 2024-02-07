@@ -42,7 +42,7 @@ services:
       disable: true
 
   admin:
-    image: ghcr.io/mailu/admin:2.0.37
+    image: ghcr.io/mailu/admin:2.0.38
     restart: unless-stopped
     environment:
       - IMAP_ADDRESS=dovecot
