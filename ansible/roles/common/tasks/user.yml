@@ -53,4 +53,4 @@
 - name: Delete root password
   ansible.builtin.user:
     name: root
-    password: "*"
+    password: ""
