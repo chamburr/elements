@@ -62,6 +62,7 @@ My infrastructure currently consists of multiple nodes with the following specif
 
 - Radon: 8 vCPU, 12GB RAM, 100GB SSD (Los Angeles)
 - Xenon: 1 vCPU, 1GB RAM, 25GB SSD (Singapore)
+- Krypton: 2 vCPU, 2GB RAM, 60GB SSD (Chicago)
 
 ## License
 

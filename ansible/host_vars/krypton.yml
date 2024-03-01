@@ -1,0 +1,10 @@
+---
+common_timezone: America/Chicago
+
+common_swap_size: 2048
+
+network_firewall_services:
+  22/tcp: allow
+  80/tcp: allow
+  443/tcp: allow
+  51820/udp: allow
