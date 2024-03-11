@@ -6,10 +6,10 @@ startup() {
 
   printenv CONFIG > /etc/wireguard/wg0.conf
 
-  socat udp-listen:53,reuseaddr,fork udp:10.0.0.1:53 &
+  socat udp-recvfrom:53,fork udp-sendto:127.0.0.11:53 &
   p1=$!
 
-  socat tcp-listen:53,reuseaddr,fork tcp:10.0.0.1:53 &
+  socat tcp-listen:53,reuseaddr,fork tcp:127.0.0.11:53 &
   p2=$!
 
   wg-quick up wg0
