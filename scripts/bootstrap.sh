@@ -12,6 +12,7 @@ prepare() {
 install() {
   echo 'Installing...'
 
+  export ANSIBLE_HOST_KEY_CHECKING=False
   ./scripts/ansible.sh playbook ansible/main.yml --tags common --limit "$1"
 
   sed -i \
