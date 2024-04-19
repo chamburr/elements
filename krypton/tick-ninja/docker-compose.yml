@@ -1,0 +1,45 @@
+---
+version: "3"
+
+services:
+  tick-ninja:
+    image: docker.io/tch1001/tickninja:v1.1.7
+    restart: unless-stopped
+    environment:
+      - FBappID=abc
+      - FBappSecret=abc
+      - GclientID=abc
+      - GclientSecret=abc
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PORT=5432
+      - POSTGRES_USERNAME=postgres
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DATABASE=tick-ninja
+    networks:
+      - default
+      - traefik_default
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.tick-ninja.loadbalancer.server.port=8880
+      - traefik.http.routers.tick-ninja.rule=Host(`tick.ninja`, `www.tick.ninja`)
+      - traefik.http.routers.tick-ninja.service=tick-ninja
+      - traefik.http.routers.tick-ninja.middlewares=redirect
+      - traefik.http.routers.tick-ninja.tls=true
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres:16.2-alpine
+    restart: unless-stopped
+    environment:
+      - POSTGRES_DB=tick-ninja
+      - POSTGRES_HOST_AUTH_METHOD=trust
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+networks:
+  traefik_default:
+    external: true
+
+volumes:
+  postgres:
