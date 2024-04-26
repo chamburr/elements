@@ -3,7 +3,7 @@ version: "3"
 
 services:
   wiki:
-    image: ghcr.io/requarks/wiki:2.5.301
+    image: ghcr.io/requarks/wiki:2.5.302
     restart: unless-stopped
     command:
       - /bin/sh
