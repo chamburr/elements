@@ -4,7 +4,7 @@ version: "3"
 services:
   web:
     # yamllint disable-line rule:line-length
-    image: ghcr.io/chamburr/modmail-web:latest@sha256:f7c84379ae8a632208503c36c87ac7cd061b16dced149d1754d54e7fb3eccd75
+    image: ghcr.io/chamburr/modmail-web:latest@sha256:67181c6b97f7832f2ca0627b4ad6eef316145bf5c7e336515c8222a25b338d99
     restart: unless-stopped
     command:
       - /bin/sh
