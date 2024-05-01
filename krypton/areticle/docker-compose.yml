@@ -27,7 +27,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.areticle.loadbalancer.server.port=2368
-      - traefik.http.routers.areticle.rule=Host(`areticle.com`, `www.areticle.com`)
+      - traefik.http.routers.areticle.rule=Host(`areticle.com`) || Host(`www.areticle.com`)
       - traefik.http.routers.areticle.service=areticle
       - traefik.http.routers.areticle.middlewares=redirect
       - traefik.http.routers.areticle.tls=true

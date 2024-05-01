@@ -20,7 +20,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.modmail.loadbalancer.server.port=6000
-      - traefik.http.routers.modmail.rule=Host(`modmail.xyz`, `www.modmail.xyz`)
+      - traefik.http.routers.modmail.rule=Host(`modmail.xyz`) || Host(`www.modmail.xyz`)
       - traefik.http.routers.modmail.service=modmail
       - traefik.http.routers.modmail.middlewares=redirect
       - traefik.http.routers.modmail.tls=true

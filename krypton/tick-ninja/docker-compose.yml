@@ -21,7 +21,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.tick-ninja.loadbalancer.server.port=8880
-      - traefik.http.routers.tick-ninja.rule=Host(`tick.ninja`, `www.tick.ninja`)
+      - traefik.http.routers.tick-ninja.rule=Host(`tick.ninja`) || Host(`www.tick.ninja`)
       - traefik.http.routers.tick-ninja.service=tick-ninja
       - traefik.http.routers.tick-ninja.middlewares=redirect
       - traefik.http.routers.tick-ninja.tls=true

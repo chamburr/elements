@@ -20,7 +20,7 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.wjfclass.loadbalancer.server.port=3000
-      - traefik.http.routers.wjfclass.rule=Host(`wjfclass.net`, `www.wjfclass.net`)
+      - traefik.http.routers.wjfclass.rule=Host(`wjfclass.net`) || Host(`www.wjfclass.net`)
       - traefik.http.routers.wjfclass.service=wjfclass
       - traefik.http.routers.wjfclass.middlewares=redirect
       - traefik.http.routers.wjfclass.tls=true
