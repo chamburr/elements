@@ -30,7 +30,7 @@ services:
 
   api:
     # yamllint disable-line rule:line-length
-    image: ghcr.io/chamburr/modmail-api:latest@sha256:fe5ebcbb34c5cba924a985ec4c6f9e55059b742edbbe5c539c3dc3627089020b
+    image: ghcr.io/chamburr/modmail-api:latest@sha256:a3393010d86ca85b2751653a748a4801c848479ac1f7295b2341c46df468d081
     restart: unless-stopped
     command:
       - /bin/sh
