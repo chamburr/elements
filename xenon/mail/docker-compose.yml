@@ -6,6 +6,7 @@ services:
     image: ghcr.io/mailu/nginx:2024.06.5
     restart: unless-stopped
     environment:
+      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
       - ADMIN_ADDRESS=admin
       - ANTISPAM_ADDRESS=rspamd
       - IMAP_ADDRESS=dovecot
@@ -45,6 +46,7 @@ services:
     image: ghcr.io/mailu/admin:2024.06.5
     restart: unless-stopped
     environment:
+      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
       - IMAP_ADDRESS=dovecot
       - REDIS_ADDRESS=redis
       - SMTP_ADDRESS=postfix
@@ -72,6 +74,7 @@ services:
     image: ghcr.io/mailu/dovecot:2024.06.5
     restart: unless-stopped
     environment:
+      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
       - ADMIN_ADDRESS=admin
       - ANTISPAM_ADDRESS=rspamd
       - FRONT_ADDRESS=nginx
@@ -92,6 +95,7 @@ services:
     image: ghcr.io/mailu/postfix:2024.06.5
     restart: unless-stopped
     environment:
+      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
       - ADMIN_ADDRESS=admin
       - ANTISPAM_ADDRESS=rspamd
       - IMAP_ADDRESS=dovecot
@@ -117,6 +121,7 @@ services:
     hostname: rspamd
     restart: unless-stopped
     environment:
+      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
       - ADMIN_ADDRESS=admin
       - REDIS_ADDRESS=redis
       - SUBNET=172.16.0.0/12
