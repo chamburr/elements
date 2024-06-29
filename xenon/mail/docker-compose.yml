@@ -51,7 +51,7 @@ services:
       - IMAP_ADDRESS=dovecot
       - REDIS_ADDRESS=redis
       - SMTP_ADDRESS=postfix
-      - SUBNET=172.16.0.0/12
+      - SUBNET=172.16.0.0/16
       - SECRET_KEY=${SECRET}
       - POSTMASTER=postmaster
       - DOMAIN=chamburr.com
@@ -80,7 +80,7 @@ services:
       - ADMIN_ADDRESS=admin
       - ANTISPAM_ADDRESS=rspamd
       - FRONT_ADDRESS=nginx
-      - SUBNET=172.16.0.0/12
+      - SUBNET=172.16.0.0/16
       - SECRET_KEY=${SECRET}
       - POSTMASTER=postmaster
       - DOMAIN=chamburr.com
@@ -101,7 +101,7 @@ services:
       - ADMIN_ADDRESS=admin
       - ANTISPAM_ADDRESS=rspamd
       - IMAP_ADDRESS=dovecot
-      - SUBNET=172.16.0.0/12
+      - SUBNET=172.16.0.0/16
       - SECRET_KEY=${SECRET}
       - REJECT_UNLISTED_RECIPIENT=yes
       - DOMAIN=chamburr.com
@@ -126,7 +126,7 @@ services:
       - LD_PRELOAD=/usr/lib/libhardened_malloc.so
       - ADMIN_ADDRESS=admin
       - REDIS_ADDRESS=redis
-      - SUBNET=172.16.0.0/12
+      - SUBNET=172.16.0.0/16
       - SECRET_KEY=${SECRET}
     volumes:
       - rspamd:/var/lib/rspamd
@@ -142,6 +142,12 @@ services:
       - redis:/data
 
 networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.0.0/16
   traefik_default:
     external: true
 
