@@ -8,6 +8,6 @@ network_firewall_services:
   25/tcp: allow
   80/tcp: allow
   443/tcp: allow
-  465/tcp: allow
+  587/tcp: allow
   993/tcp: allow
   51820/udp: allow

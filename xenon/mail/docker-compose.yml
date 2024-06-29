@@ -13,6 +13,7 @@ services:
       - SECRET_KEY=${SECRET}
       - TLS_FLAVOR=mail-letsencrypt
       - HOSTNAMES=mail.chamburr.com
+      - PORTS=25,80,443,587,993
       - MESSAGE_SIZE_LIMIT=104857600
       - POSTMASTER=hi
       - DOMAIN=chamburr.com
@@ -26,7 +27,7 @@ services:
       - traefik_default
     ports:
       - "25:25"
-      - 465:465
+      - 587:587
       - 993:993
     volumes:
       - nginx:/certs
@@ -55,6 +56,7 @@ services:
       - POSTMASTER=postmaster
       - DOMAIN=chamburr.com
       - HOSTNAMES=mail.chamburr.com
+      - PORTS=25,80,443,587,993
       - WEBMAIL=none
       - RECIPIENT_DELIMITER=+
       - DKIM_PATH=/data/dkim/{domain}.key
