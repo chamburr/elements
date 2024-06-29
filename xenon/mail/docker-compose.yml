@@ -3,7 +3,7 @@ version: "3"
 
 services:
   nginx:
-    image: ghcr.io/mailu/nginx:2.0.43
+    image: ghcr.io/mailu/nginx:2024.06.5
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
@@ -25,7 +25,7 @@ services:
       - traefik_default
     ports:
       - "25:25"
-      - 587:587
+      - 465:465
       - 993:993
     volumes:
       - nginx:/certs
@@ -42,7 +42,7 @@ services:
       disable: true
 
   admin:
-    image: ghcr.io/mailu/admin:2.0.43
+    image: ghcr.io/mailu/admin:2024.06.5
     restart: unless-stopped
     environment:
       - IMAP_ADDRESS=dovecot
@@ -69,7 +69,7 @@ services:
       - redis
 
   dovecot:
-    image: ghcr.io/mailu/dovecot:2.0.43
+    image: ghcr.io/mailu/dovecot:2024.06.5
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
@@ -89,7 +89,7 @@ services:
       - nginx
 
   postfix:
-    image: ghcr.io/mailu/postfix:2.0.43
+    image: ghcr.io/mailu/postfix:2024.06.5
     restart: unless-stopped
     environment:
       - ADMIN_ADDRESS=admin
@@ -113,7 +113,7 @@ services:
       - nginx
 
   rspamd:
-    image: ghcr.io/mailu/rspamd:2.0.43
+    image: ghcr.io/mailu/rspamd:2024.06.5
     hostname: rspamd
     restart: unless-stopped
     environment:
