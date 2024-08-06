@@ -3,7 +3,7 @@ version: "3"
 
 services:
   ghost:
-    image: ghost:5.88.3-alpine
+    image: ghost:5.89.0-alpine
     restart: unless-stopped
     environment:
       - url=https://blog.chamburr.com
