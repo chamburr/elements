@@ -3,7 +3,7 @@ version: "3"
 
 services:
   nginx:
-    image: ghcr.io/mailu/nginx:2024.06.8
+    image: ghcr.io/mailu/nginx:2024.06.9
     restart: unless-stopped
     environment:
       - LD_PRELOAD=/usr/lib/libhardened_malloc.so
