@@ -12,7 +12,7 @@ services:
     ports:
       - 51820:51820/udp
     volumes:
-      - ${PWD}/entrypoint.sh:/entrypoint.sh
+      - ${PWD}/entrypoint.sh:/entrypoint.sh:ro
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
