@@ -88,6 +88,7 @@ services:
       - RECIPIENT_DELIMITER=+
     volumes:
       - dovecot:/mail
+      - ${PWD}/dovecot.conf:/overrides/dovecot.conf:ro
     healthcheck:
       disable: true
     depends_on:
@@ -131,6 +132,7 @@ services:
       - SECRET_KEY=${SECRET}
     volumes:
       - rspamd:/var/lib/rspamd
+      - ${PWD}/milter_headers.conf:/conf/milter_headers.conf:ro
     healthcheck:
       disable: true
     depends_on:
