@@ -73,7 +73,7 @@ services:
       - redis
 
   dovecot:
-    image: ghcr.io/mailu/dovecot:2024.06.24
+    image: ghcr.io/mailu/dovecot:2024.06.26
     restart: unless-stopped
     environment:
       - LD_PRELOAD=/usr/lib/libhardened_malloc.so
