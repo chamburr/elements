@@ -28,7 +28,7 @@ services:
       - mariadb
 
   mariadb:
-    image: mariadb:11.5.2
+    image: mariadb:11.6.2
     restart: unless-stopped
     environment:
       - MARIADB_DATABASE=wiki
