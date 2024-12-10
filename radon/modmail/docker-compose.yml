@@ -4,7 +4,7 @@ version: "3"
 services:
   web:
     # yamllint disable-line rule:line-length
-    image: ghcr.io/chamburr/modmail-web:latest@sha256:b251b957e081465fd7a70de7bacf4844f0c80fef3837bd75220ef157521b2d82
+    image: ghcr.io/chamburr/modmail-web:latest@sha256:32fb6bad2be575492a28498ad5dd1428c382845e78dd7f91b3e8ac9731693a93
     restart: unless-stopped
     command:
       - /bin/sh
@@ -30,7 +30,7 @@ services:
 
   api:
     # yamllint disable-line rule:line-length
-    image: ghcr.io/chamburr/modmail-api:latest@sha256:0d767a93f096dd3862cfaedf4b780c8ea6ae35860c06421612280a5871c0f06c
+    image: ghcr.io/chamburr/modmail-api:latest@sha256:2ade43de56837b1094f74feeba1ef29268865faf725cc4b1b9494b5f7a68a5fc
     restart: unless-stopped
     command:
       - /bin/sh
@@ -44,7 +44,7 @@ services:
 
   bot:
     # yamllint disable-line rule:line-length
-    image: ghcr.io/chamburr/modmail-bot:latest@sha256:f59c61847c5714545938d590b49dff2d4421f47e8e6946449504ab24bf4abd03
+    image: ghcr.io/chamburr/modmail-bot:latest@sha256:540f33b1519fbd8cce6181ca966634465cb18a4219dee432945928b1e78850fa
     restart: unless-stopped
     command:
       - /bin/sh
