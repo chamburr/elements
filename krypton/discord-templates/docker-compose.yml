@@ -4,7 +4,7 @@ version: "3"
 services:
   templates:
     # yamllint disable-line rule:line-length
-    image: ghcr.io/chamburr/discord-templates:latest@sha256:601331e52b04e1342338fe07ee966cdd1ebd9c0e01515ce54ce3eaa815a487b6
+    image: ghcr.io/chamburr/discord-templates:latest@sha256:c70b6ac7735ab5226decc1c99d443813e9f189b84f15ae050c7fe21520c21ca3
     restart: unless-stopped
     command:
       - /bin/sh
