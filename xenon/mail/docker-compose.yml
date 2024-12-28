@@ -121,7 +121,7 @@ services:
       - nginx
 
   rspamd:
-    image: ghcr.io/mailu/rspamd:2024.06.27
+    image: ghcr.io/mailu/rspamd:2024.06.28
     hostname: rspamd
     restart: unless-stopped
     environment:
