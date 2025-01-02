@@ -95,7 +95,7 @@ services:
       - nginx
 
   postfix:
-    image: ghcr.io/mailu/postfix:2024.06.28
+    image: ghcr.io/mailu/postfix:2024.06.29
     restart: unless-stopped
     environment:
       - LD_PRELOAD=/usr/lib/libhardened_malloc.so
