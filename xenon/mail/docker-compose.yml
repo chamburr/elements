@@ -44,7 +44,7 @@ services:
       disable: true
 
   admin:
-    image: ghcr.io/mailu/admin:2024.06.29
+    image: ghcr.io/mailu/admin:2024.06.30
     restart: unless-stopped
     environment:
       - LD_PRELOAD=/usr/lib/libhardened_malloc.so
