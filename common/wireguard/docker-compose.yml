@@ -3,7 +3,7 @@ version: "3"
 
 services:
   wireguard:
-    image: alpine:3.21.2
+    image: alpine:3.21.3
     restart: unless-stopped
     command:
       - /entrypoint.sh
