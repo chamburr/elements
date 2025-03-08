@@ -3,7 +3,7 @@ version: "3"
 
 services:
   ghost:
-    image: ghost:5.110.4-alpine
+    image: ghost:5.111.0-alpine
     restart: unless-stopped
     environment:
       - url=https://areticle.com
