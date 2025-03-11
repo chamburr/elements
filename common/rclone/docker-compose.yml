@@ -1,0 +1,20 @@
+services:
+  rclone:
+    image: ghcr.io/rclone/rclone:1.69.1
+    restart: unless-stopped
+    entrypoint: []
+    command:
+      - /entrypoint.sh
+    environment:
+      - S3_ENDPOINT=${ENDPOINT}
+      - S3_ACCESS_KEY=${ACCESS_KEY}
+      - S3_SECRET_KEY=${SECRET_KEY}
+    volumes:
+      - rclone:/scripts/data
+      - ${PWD}/entrypoint.sh:/entrypoint.sh:ro
+      - ${PWD}/backup.sh:/scripts/backup.sh:ro
+      - /etc/hostname:/scripts/hostname:ro
+      - /var/lib/docker/volumes:/data:ro
+
+volumes:
+  rclone:
