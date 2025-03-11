@@ -1,15 +1,16 @@
 - name: Add sops key
-  ansible.builtin.get_url:
-    url: https://dl.cloudsmith.io/public/cloudposse-dev/packages/gpg.key
-    dest: /etc/apt/keyrings/sops.asc
-    mode: 0644
+  ansible.builtin.shell: # noqa: command-instead-of-module
+    cmd: |
+      set -o pipefail && curl -s https://dl.cloudsmith.io/public/cloudposse/packages/gpg.key \
+        | gpg --dearmor > /etc/apt/keyrings/sops.gpg
+    creates: /etc/apt/keyrings/sops.gpg
 
 - name: Add sops repository
   ansible.builtin.apt_repository:
     filename: sops
     repo: >-
-      deb [signed-by=/etc/apt/keyrings/sops.asc]
-      https://dl.cloudsmith.io/public/cloudposse-dev/packages/deb/ubuntu jammy main
+      deb [signed-by=/etc/apt/keyrings/sops.gpg]
+      https://dl.cloudsmith.io/public/cloudposse/packages/deb/ubuntu jammy main
     state: present
 
 - name: Install sops package
