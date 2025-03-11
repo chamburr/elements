@@ -1,15 +1,14 @@
 #!/bin/sh
 
 startup() {
-  apk add --no-cache iptables wireguard-tools
-  apk add --no-cache --repository=http://dl-cdn.alpinelinux.org/alpine/v3.18/main socat=1.7.4.4-r1
+  apk add --no-cache iptables wireguard-tools socat
 
   printenv CONFIG > /etc/wireguard/wg0.conf
 
-  socat udp-recvfrom:53,fork udp-sendto:127.0.0.11:53 &
+  socat tcp-listen:53,fork,reuseaddr tcp:127.0.0.11:53 &
   p1=$!
 
-  socat tcp-listen:53,reuseaddr,fork tcp:127.0.0.11:53 &
+  socat -T30 udp-listen:53,fork,reuseaddr udp:127.0.0.11:53 &
   p2=$!
 
   wg-quick up wg0

@@ -12,4 +12,3 @@ services:
       - ${PWD}/entrypoint.sh:/entrypoint.sh:ro
     cap_add:
       - NET_ADMIN
-      - SYS_MODULE
