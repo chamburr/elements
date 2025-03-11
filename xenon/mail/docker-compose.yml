@@ -139,7 +139,7 @@ services:
       - nginx
 
   redis:
-    image: redis:7.4.2-alpine
+    image: public.ecr.aws/docker/library/redis:7.4.2-alpine
     restart: unless-stopped
     volumes:
       - redis:/data

@@ -3,7 +3,7 @@ version: "3"
 
 services:
   ghost:
-    image: ghost:5.110.4-alpine
+    image: public.ecr.aws/docker/library/ghost:5.111.0-alpine
     restart: unless-stopped
     environment:
       - url=https://blog.chamburr.com
@@ -39,7 +39,7 @@ services:
       - traefik.http.routers.blog.tls.domains[0].sans=*.chamburr.com
 
   mysql:
-    image: mysql:8.4.4
+    image: public.ecr.aws/docker/library/mysql:8.4.4
     restart: unless-stopped
     command:
       - --performance-schema=OFF

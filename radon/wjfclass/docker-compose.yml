@@ -28,7 +28,7 @@ services:
       - mariadb
 
   mariadb:
-    image: mariadb:11.7.2
+    image: public.ecr.aws/docker/library/mariadb:11.7.2
     restart: unless-stopped
     environment:
       - MARIADB_DATABASE=wiki

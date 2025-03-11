@@ -74,7 +74,7 @@ services:
       - rabbitmq
 
   postgres:
-    image: postgres:16.4-alpine
+    image: public.ecr.aws/docker/library/postgres:16.8-alpine
     restart: unless-stopped
     environment:
       - POSTGRES_DB=modmail
@@ -90,7 +90,7 @@ services:
       - --server-threads 4
 
   rabbitmq:
-    image: rabbitmq:3.13.7-alpine
+    image: public.ecr.aws/docker/library/rabbitmq:3.13.7-alpine
     restart: unless-stopped
 
 networks:
