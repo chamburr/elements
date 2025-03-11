@@ -101,6 +101,10 @@ services:
   radicale:
     image: ghcr.io/mailu/radicale:2024.06.36
     restart: unless-stopped
+    command:
+      - /bin/sh
+      - -c
+      - /app/venv/bin/pip install -U radicale && radicale -S -C /radicale.conf
     volumes:
       - radicale:/data
     healthcheck:
