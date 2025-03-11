@@ -1,7 +1,6 @@
 - name: Install firewall package
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: ufw
-    update_cache: true
     state: present
 
 - name: Configure firewall services

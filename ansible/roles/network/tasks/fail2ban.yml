@@ -1,7 +1,6 @@
 - name: Install fail2ban package
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: fail2ban
-    update_cache: true
     state: present
 
 - name: Copy fail2ban configuration

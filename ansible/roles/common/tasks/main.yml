@@ -6,6 +6,7 @@
 
 - name: Include swap tasks
   ansible.builtin.include_tasks: swap.yml
+  when: common_swap_enabled
 
 - name: Include user tasks
   ansible.builtin.include_tasks: user.yml

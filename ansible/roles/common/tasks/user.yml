@@ -1,9 +1,3 @@
-- name: Delete default user
-  ansible.builtin.user:
-    name: "{{ common_default_username }}"
-    remove: true
-    state: absent
-
 - name: Allow passwordless sudo
   ansible.builtin.lineinfile: # noqa: no-tabs
     path: /etc/sudoers
@@ -12,22 +6,17 @@
     validate: visudo -cf %s
     state: present
 
-- name: Create groups
+- name: Create group
   ansible.builtin.group:
-    name: "{{ item }}"
+    name: "{{ common_username }}"
     state: present
-  loop:
-    - "{{ common_username }}"
-    - docker
 
 - name: Create user
   ansible.builtin.user:
     name: "{{ common_username }}"
     password: "{{ common_password }}"
     group: "{{ common_username }}"
-    groups:
-      - sudo
-      - docker
+    groups: sudo
     shell: /bin/bash
     append: true
     state: present

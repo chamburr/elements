@@ -17,11 +17,10 @@ common_packages:
   - tree
   - unzip
 
+common_swap_enabled: true
 common_swap_path: /swapfile
 common_swap_size: 2048
 common_swap_swappiness: 60
-
-common_default_username: ubuntu
 
 common_username: user
 common_password: "*"

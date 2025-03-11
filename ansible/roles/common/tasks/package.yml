@@ -5,6 +5,7 @@
   loop:
     - lxd
     - core20
+    - core22
     - snapd
   register: common_snap_remove
   failed_when:
@@ -17,21 +18,18 @@
     state: absent
 
 - name: Remove packages
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: "{{ common_remove_packages }}"
-    purge: true
     state: absent
 
 - name: Install packages
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: "{{ common_packages }}"
-    update_cache: true
     state: present
 
 - name: Install auto upgrade package
-  ansible.builtin.apt:
+  ansible.builtin.package:
     name: unattended-upgrades
-    update_cache: true
     state: present
 
 - name: Copy auto upgrade configuration
