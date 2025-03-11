@@ -1,6 +1,3 @@
----
-version: "3"
-
 services:
   ghost:
     image: public.ecr.aws/docker/library/ghost:5.111.0-alpine

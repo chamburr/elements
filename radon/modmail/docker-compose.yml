@@ -1,6 +1,3 @@
----
-version: "3"
-
 services:
   web:
     # yamllint disable-line rule:line-length
