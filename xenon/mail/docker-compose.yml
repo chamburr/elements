@@ -14,14 +14,13 @@ services:
       - 993:993
     volumes:
       - nginx:/certs
+    healthcheck:
+      disable: true
     labels:
       - traefik.enable=true
       - traefik.http.services.mail.loadbalancer.server.port=80
-      - traefik.http.middlewares.mail.replacepathregex.regex=^/.well-known/(?:card|cal)dav
-      - traefik.http.middlewares.mail.replacepathregex.replacement=/webdav
       - traefik.http.routers.mail.rule=Host(`mail.chamburr.com`)
       - traefik.http.routers.mail.service=mail
-      - traefik.http.routers.mail.middlewares=mail
       - traefik.http.routers.mail.tls=true
       - traefik.http.routers.mail.tls.certresolver=letsencrypt
       - traefik.http.routers.mail.tls.domains[0].main=chamburr.com
@@ -41,6 +40,8 @@ services:
       - unbound
     dns:
       - 172.16.0.254
+    healthcheck:
+      disable: true
 
   dovecot:
     image: ghcr.io/mailu/dovecot:2024.06.36
@@ -54,6 +55,8 @@ services:
       - unbound
     dns:
       - 172.16.0.254
+    healthcheck:
+      disable: true
 
   postfix:
     image: ghcr.io/mailu/postfix:2024.06.36
@@ -66,6 +69,8 @@ services:
       - unbound
     dns:
       - 172.16.0.254
+    healthcheck:
+      disable: true
 
   rspamd:
     image: ghcr.io/mailu/rspamd:2024.06.36
@@ -80,6 +85,8 @@ services:
       - unbound
     dns:
       - 172.16.0.254
+    healthcheck:
+      disable: true
 
   unbound:
     image: ghcr.io/mailu/unbound:2024.06.36
@@ -88,22 +95,23 @@ services:
     networks:
       default:
         ipv4_address: 172.16.0.254
+    healthcheck:
+      disable: true
 
   radicale:
     image: ghcr.io/mailu/radicale:2024.06.36
     restart: unless-stopped
     volumes:
       - radicale:/data
+    healthcheck:
+      disable: true
 
-  z-push:
+  zpush:
     # yamllint disable-line rule:line-length
     image: docker.io/kour1er/z-push:latest@sha256:4a37f758b3799e746c6c2e8953c174017e37b0acfd6e64088084714829db7eae
     restart: unless-stopped
-    entrypoint: []
-    command:
-      - /entrypoint.sh
     environment:
-      - BACKEND_PROVIDER=BackendCombined
+      - BACKEND_PROVIDER=BackendIMAP
       - IMAP_FOLDER_ARCHIVE='Archive'
       - IMAP_FOLDER_DRAFTS='Drafts'
       - IMAP_FOLDER_INBOX='Inbox'
@@ -113,17 +121,13 @@ services:
       - IMAP_PORT=993
       - IMAP_SERVER_METHOD=smtp
       - IMAP_SERVER=mail.chamburr.com
-      - CALDAV_PATH=/webdav/calendars/%u/
-      - CARDDAV_PATH=/webdav/addressbooks/%u/
-      - TIMEZONE=Etc/UTC
+      - TIMEZONE='Etc/UTC'
       - ZPUSH_HOST=mail.chamburr.com
     networks:
       - default
       - traefik_default
     volumes:
-      - z-push:/var/lib/z-push
-      - ${PWD}/z-push/entrypoint.sh:/entrypoint.sh:ro
-      - ${PWD}/z-push/config.php:/usr/share/z-push/backend/combined/config.php:ro
+      - zpush:/var/lib/z-push
     labels:
       - traefik.enable=true
       - traefik.http.services.mail-push.loadbalancer.server.port=8080
@@ -158,5 +162,5 @@ volumes:
   postfix:
   rspamd:
   radicale:
-  z-push:
+  zpush:
   redis:
