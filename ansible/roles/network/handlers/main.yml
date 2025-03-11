@@ -1,4 +1,3 @@
----
 - name: Restart dns service
   ansible.builtin.service:
     name: systemd-resolved

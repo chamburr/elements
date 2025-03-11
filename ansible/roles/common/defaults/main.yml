@@ -1,4 +1,3 @@
----
 common_timezone: Etc/UTC
 
 common_remove_packages:

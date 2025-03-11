@@ -1,4 +1,3 @@
----
 - name: Install firewall package
   ansible.builtin.apt:
     name: ufw
