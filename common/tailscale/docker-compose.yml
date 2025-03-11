@@ -1,0 +1,21 @@
+services:
+  tailscale:
+    image: ghcr.io/tailscale/tailscale:v1.80.3
+    restart: unless-stopped
+    environment:
+      - TS_ACCEPT_DNS=false
+      - TS_AUTH_ONCE=true
+      - TS_AUTHKEY=${AUTH_KEY}
+      - TS_STATE_DATA=/var/lib/tailscale
+      - TS_USERSPACE=false
+      - TS_EXTRA_ARGS=--login-server=${ENDPOINT}
+    volumes:
+      - tailscale:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+
+volumes:
+  tailscale:

@@ -14,7 +14,5 @@
       tags: common
     - role: network
       tags: network
-    - role: apps
-      tags: apps
     - role: docker
       tags: docker
