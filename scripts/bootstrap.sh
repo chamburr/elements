@@ -12,20 +12,24 @@ prepare() {
 install() {
   echo 'Installing...'
 
-  export ANSIBLE_HOST_KEY_CHECKING=False
-  ./scripts/ansible.sh playbook ansible/main.yml --tags common --limit "$1"
+  username=$(grep ^USERNAME= .env | cut -d '=' -f2-)
+  password=$(grep ^PASSWORD= .env | cut -d '=' -f2-)
 
-  sed -i \
-    -e "s/^USER=.*/USER=$(cat ansible/group_vars/all.yml | yq '.common_username')/" \
-    -e "s/^PASSWORD=.*/PASSWORD=/" \
-    .env
+  args=''
 
-  export NETMAKER_TOKEN=$(grep ^NETMAKER_TOKEN= .env | cut -d '=' -f2-)
-  export MINIO_ENDPOINT=$(grep ^MINIO_ENDPOINT= .env | cut -d '=' -f2-)
-  export MINIO_ACCESS_KEY=$(grep ^MINIO_ACCESS_KEY= .env | cut -d '=' -f2-)
-  export MINIO_SECRET_KEY=$(grep ^MINIO_SECRET_KEY= .env | cut -d '=' -f2-)
+  if [ "$username" != '' ]; then
+    args="ansible_user='$username'"
+    if [ "$password" != '' ]; then
+      args="$args ansible_password='$password'"
+    fi
+  fi
 
-  ./scripts/ansible.sh playbook ansible/main.yml --skip-tags common --limit "$1"
+  ansible-playbook -i ansible/hosts.yml -e "$args" ansible/main.yml --tags common --limit "$1"
+
+  export DOCKER_USERNAME=$(grep ^DOCKER_USERNAME= .env | cut -d '=' -f2-)
+  export DOCKER_PASSWORD=$(grep ^DOCKER_PASSWORD= .env | cut -d '=' -f2-)
+
+  ansible-playbook -i ansible/hosts.yml ansible/main.yml --skip-tags common --limit "$1"
 }
 
 prepare "$@"
