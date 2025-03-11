@@ -6,7 +6,7 @@ services:
       - TS_ACCEPT_DNS=false
       - TS_AUTH_ONCE=true
       - TS_AUTHKEY=${AUTH_KEY}
-      - TS_STATE_DATA=/var/lib/tailscale
+      - TS_STATE_DIR=/var/lib/tailscale
       - TS_USERSPACE=false
       - TS_EXTRA_ARGS=--login-server=${ENDPOINT}
     volumes:
