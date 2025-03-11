@@ -2,23 +2,9 @@ services:
   nginx:
     image: ghcr.io/mailu/nginx:2024.06.36
     restart: unless-stopped
+    env_file: .env
     environment:
-      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
-      - ADMIN_ADDRESS=admin
-      - ANTISPAM_ADDRESS=rspamd
-      - IMAP_ADDRESS=dovecot
-      - SECRET_KEY=${SECRET}
-      - TLS_FLAVOR=mail-letsencrypt
-      - HOSTNAMES=mail.chamburr.com
       - PORTS=25,80,443,465,587,993,995,4190
-      - MESSAGE_SIZE_LIMIT=104857600
-      - POSTMASTER=hi
-      - DOMAIN=chamburr.com
-      - ADMIN=true
-      - WEBDAV=none
-      - WEBMAIL=none
-      - WEBROOT_REDIRECT=/admin/
-      - WEB_ADMIN=/admin
     networks:
       - default
       - traefik_default
@@ -31,109 +17,123 @@ services:
     labels:
       - traefik.enable=true
       - traefik.http.services.mail.loadbalancer.server.port=80
+      - traefik.http.middlewares.mail.replacepathregex.regex=^/.well-known/(?:card|cal)dav
+      - traefik.http.middlewares.mail.replacepathregex.replacement=/webdav
       - traefik.http.routers.mail.rule=Host(`mail.chamburr.com`)
       - traefik.http.routers.mail.service=mail
+      - traefik.http.routers.mail.middlewares=mail
       - traefik.http.routers.mail.tls=true
       - traefik.http.routers.mail.tls.certresolver=letsencrypt
       - traefik.http.routers.mail.tls.domains[0].main=chamburr.com
       - traefik.http.routers.mail.tls.domains[0].sans=*.chamburr.com
-    healthcheck:
-      disable: true
 
   admin:
     image: ghcr.io/mailu/admin:2024.06.36
     restart: unless-stopped
+    env_file: .env
     environment:
-      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
-      - IMAP_ADDRESS=dovecot
-      - REDIS_ADDRESS=redis
-      - SMTP_ADDRESS=postfix
-      - SUBNET=172.16.0.0/16
-      - SECRET_KEY=${SECRET}
-      - POSTMASTER=postmaster
-      - DOMAIN=chamburr.com
-      - HOSTNAMES=mail.chamburr.com
       - PORTS=25,80,443,465,587,993,995,4190
-      - WEBMAIL=none
-      - RECIPIENT_DELIMITER=+
       - DKIM_PATH=/data/dkim/{domain}.key
-      - MESSAGE_RATELIMIT=200/hour
-      - MESSAGE_RATELIMIT_EXEMPTION=
-      - AUTH_RATELIMIT_IP=60/hour
-      - AUTH_RATELIMIT_USER=100/day
-      - DB_FLAVOR=sqlite
     volumes:
       - admin:/data
-    healthcheck:
-      disable: true
     depends_on:
       - redis
+      - unbound
+    dns:
+      - 172.16.0.254
 
   dovecot:
     image: ghcr.io/mailu/dovecot:2024.06.36
     restart: unless-stopped
-    environment:
-      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
-      - ADMIN_ADDRESS=admin
-      - ANTISPAM_ADDRESS=rspamd
-      - FRONT_ADDRESS=nginx
-      - SUBNET=172.16.0.0/16
-      - SECRET_KEY=${SECRET}
-      - POSTMASTER=postmaster
-      - DOMAIN=chamburr.com
-      - HOSTNAMES=mail.chamburr.com
-      - RECIPIENT_DELIMITER=+
+    env_file: .env
     volumes:
       - dovecot:/mail
       - ${PWD}/dovecot.conf:/overrides/dovecot.conf:ro
-    healthcheck:
-      disable: true
     depends_on:
       - nginx
+      - unbound
+    dns:
+      - 172.16.0.254
 
   postfix:
     image: ghcr.io/mailu/postfix:2024.06.36
     restart: unless-stopped
-    environment:
-      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
-      - ADMIN_ADDRESS=admin
-      - ANTISPAM_ADDRESS=rspamd
-      - FRONT_ADDRESS=nginx
-      - IMAP_ADDRESS=dovecot
-      - SUBNET=172.16.0.0/16
-      - SECRET_KEY=${SECRET}
-      - REJECT_UNLISTED_RECIPIENT=yes
-      - DOMAIN=chamburr.com
-      - HOSTNAMES=mail.chamburr.com
-      - MESSAGE_SIZE_LIMIT=104857600
-      - RECIPIENT_DELIMITER=+
-      - RELAYHOST=${RELAY_HOST}:${RELAY_PORT}
-      - RELAYUSER=${RELAY_USERNAME}
-      - RELAYPASSWORD=${RELAY_PASSWORD}
+    env_file: .env
     volumes:
       - postfix:/queue
-    healthcheck:
-      disable: true
     depends_on:
       - nginx
+      - unbound
+    dns:
+      - 172.16.0.254
 
   rspamd:
     image: ghcr.io/mailu/rspamd:2024.06.36
     hostname: rspamd
     restart: unless-stopped
-    environment:
-      - LD_PRELOAD=/usr/lib/libhardened_malloc.so
-      - ADMIN_ADDRESS=admin
-      - REDIS_ADDRESS=redis
-      - SUBNET=172.16.0.0/16
-      - SECRET_KEY=${SECRET}
+    env_file: .env
     volumes:
       - rspamd:/var/lib/rspamd
       - ${PWD}/milter_headers.conf:/conf/milter_headers.conf:ro
-    healthcheck:
-      disable: true
     depends_on:
       - nginx
+      - unbound
+    dns:
+      - 172.16.0.254
+
+  unbound:
+    image: ghcr.io/mailu/unbound:2024.06.36
+    restart: unless-stopped
+    env_file: .env
+    networks:
+      default:
+        ipv4_address: 172.16.0.254
+
+  radicale:
+    image: ghcr.io/mailu/radicale:2024.06.36
+    restart: unless-stopped
+    volumes:
+      - radicale:/data
+
+  z-push:
+    # yamllint disable-line rule:line-length
+    image: docker.io/kour1er/z-push:latest@sha256:4a37f758b3799e746c6c2e8953c174017e37b0acfd6e64088084714829db7eae
+    restart: unless-stopped
+    entrypoint: []
+    command:
+      - /entrypoint.sh
+    environment:
+      - BACKEND_PROVIDER=BackendCombined
+      - IMAP_FOLDER_ARCHIVE='Archive'
+      - IMAP_FOLDER_DRAFTS='Drafts'
+      - IMAP_FOLDER_INBOX='Inbox'
+      - IMAP_FOLDER_SENT='Sent'
+      - IMAP_FOLDER_SPAM='Junk'
+      - IMAP_FOLDER_TRASH='Trash'
+      - IMAP_PORT=993
+      - IMAP_SERVER_METHOD=smtp
+      - IMAP_SERVER=mail.chamburr.com
+      - CALDAV_PATH=/webdav/calendars/%u/
+      - CARDDAV_PATH=/webdav/addressbooks/%u/
+      - TIMEZONE=Etc/UTC
+      - ZPUSH_HOST=mail.chamburr.com
+    networks:
+      - default
+      - traefik_default
+    volumes:
+      - z-push:/var/lib/z-push
+      - ${PWD}/z-push/entrypoint.sh:/entrypoint.sh:ro
+      - ${PWD}/z-push/config.php:/usr/share/z-push/backend/combined/config.php:ro
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.mail-push.loadbalancer.server.port=8080
+      # yamllint disable-line rule:line-length
+      - traefik.http.routers.mail-push.rule=Host(`mail.chamburr.com`) && PathPrefix(`/Microsoft-Server-ActiveSync`)
+      - traefik.http.routers.mail-push.service=mail-push
+      - traefik.http.routers.mail-push.tls=true
+      - traefik.http.routers.mail-push.tls.certresolver=letsencrypt
+      - traefik.http.routers.mail-push.tls.domains[0].main=chamburr.com
+      - traefik.http.routers.mail-push.tls.domains[0].sans=*.chamburr.com
 
   redis:
     image: public.ecr.aws/docker/library/redis:7.4.2-alpine
@@ -157,4 +157,6 @@ volumes:
   dovecot:
   postfix:
   rspamd:
+  radicale:
+  z-push:
   redis:
