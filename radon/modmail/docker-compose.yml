@@ -80,11 +80,8 @@ services:
       - postgres:/var/lib/postgresql/data
 
   redis:
-    image: eqalpha/keydb:x86_64_v6.3.1
+    image: ghcr.io/dragonflydb/dragonfly:v1.27.1
     restart: unless-stopped
-    command:
-      - --save ""
-      - --server-threads 4
 
   rabbitmq:
     image: public.ecr.aws/docker/library/rabbitmq:3.13.7-alpine
