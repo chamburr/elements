@@ -36,3 +36,8 @@
   loop:
     - docker
     - containerd
+
+- name: Add docker credentials
+  community.docker.docker_login:
+    username: "{{ lookup('env', 'DOCKER_USERNAME') }} "
+    password: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
