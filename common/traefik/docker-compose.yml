@@ -15,7 +15,7 @@ services:
       - --entrypoints.web.http.redirections.entryPoint.to=websecure
       - --entrypoints.web.http.redirections.entryPoint.scheme=https
       - --entrypoints.websecure.address=:443
-      - --certificatesresolvers.letsencrypt.acme.email=${EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.email=hi@chamburr.com
       - --certificatesresolvers.letsencrypt.acme.storage=/data/acme.json
       - --certificatesresolvers.letsencrypt.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
       - --certificatesresolvers.letsencrypt.acme.dnschallenge=true
@@ -24,9 +24,7 @@ services:
       - --serverstransport.insecureskipverify=true
       - --global.checknewversion=false
     environment:
-      - EMAIL=${EMAIL}
-      - CF_API_EMAIL=${CLOUDFLARE_EMAIL}
-      - CF_API_KEY=${CLOUDFLARE_API_KEY}
+      - CF_DNS_API_TOKEN=${CLOUDFLARE_TOKEN}
     ports:
       - 80:80
       - 443:443
