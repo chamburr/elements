@@ -12,7 +12,7 @@ steps:
       - apt-get install -y curl
       - curl -sLo /tmp/ght https://github.com/Link-/gh-token/releases/latest/download/linux-amd64
       - chmod +x /tmp/ght
-      - /tmp/ght --app-id $GITHUB_ID --base64-key $(echo -n "$GITHUB_PRIVATE_KEY" | base64)
+      - /tmp/ght generate --app-id $GITHUB_ID --base64-key "$(printenv GITHUB_PRIVATE_KEY | base64)"
         --installation-id $GITHUB_INSTALLATION --token-only > token.txt
     environment:
       GITHUB_ID:
@@ -33,6 +33,7 @@ steps:
       LOG_LEVEL: info
       RENOVATE_DRY_RUN: false
       RENOVATE_CONFIG_FILE: config.json
+    privileged: true
     backend_options:
       kubernetes:
         securityContext:
