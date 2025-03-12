@@ -50,4 +50,4 @@
     username: "{{ lookup('env', 'DOCKER_USERNAME') }}"
     password: "{{ lookup('env', 'DOCKER_PASSWORD') }}"
   become: false
-  when: lookup('env', 'DOCKER_USERNAME') is defined
+  when: lookup('env', 'DOCKER_USERNAME') != ""
