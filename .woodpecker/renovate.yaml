@@ -25,8 +25,7 @@ steps:
     image: renovate/renovate
     commands:
       - export RENOVATE_TOKEN=$(cat token.txt)
-      - curl -sO
-        https://raw.githubusercontent.com/chamburr/homelab/main/.woodpecker/renovate/config.json
+      - curl -sO https://raw.githubusercontent.com/chamburr/elements/main/.renovate/config.json
       - sed -i 's/renovateRepository(repoConfig, false)/renovateRepository(repoConfig, true)/'
         /usr/local/renovate/dist/workers/repository/index.js
       - renovate
