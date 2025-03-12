@@ -9,13 +9,8 @@
     },
     {
       "matchDatasources": ["docker"],
-      "matchUpdateTypes": ["patch", "digest"],
+      "matchUpdateTypes": ["digest"],
       "automerge": true
-    },
-    {
-      "matchDatasources": ["docker"],
-      "matchPackageNames": ["eqalpha/keydb", "rabbitmq"],
-      "automerge": false
     }
   ]
 }

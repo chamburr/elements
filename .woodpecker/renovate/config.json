@@ -4,9 +4,9 @@
     "docker:enableMajor",
     ":disableRateLimiting",
     ":disableDependencyDashboard",
-    "github>chamburr/elements//.drone/renovate/auto-merge",
-    "github>chamburr/elements//.drone/renovate/commit-message",
-    "github>chamburr/elements//.drone/renovate/pr-label"
+    "github>chamburr/elements//.woodpecker/renovate/auto-merge",
+    "github>chamburr/elements//.woodpecker/renovate/commit-message",
+    "github>chamburr/elements//.woodpecker/renovate/pr-label"
   ],
   "onboarding": false,
   "requireConfig": "optional",

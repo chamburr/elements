@@ -1,6 +1,6 @@
----
-kind: pipeline
-name: lint
+when:
+  - event: push
+    branch: main
 
 steps:
   - name: lint yaml
@@ -13,9 +13,3 @@ steps:
     commands:
       - pip install ansible-lint
       - ansible-lint ansible -q
-
-trigger:
-  event:
-    - push
-  branch:
-    - main
