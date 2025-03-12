@@ -18,9 +18,9 @@ steps:
       - pip install ansible
       - echo "$SSH_PRIVATE_KEY" > /tmp/id_ed25519
       - chmod 400 /tmp/id_ed25519
-      - ansible all -a "chdir=/home/chamburr/elements /bin/sh -c 'git fetch --prune &&
-        git reset --hard origin/main && git clean -xdf && SOPS_KEY=$SOPS_KEY
-        SOPS_RECIPIENTS=$SOPS_RECIPIENTS ./scripts/deploy.sh'"
+      - ansible -i ansible/hosts.yml all -a "chdir=/home/chamburr/elements
+        /bin/sh -c 'git fetch --prune && git reset --hard origin/main && git clean -xdf &&
+        SOPS_KEY=$SOPS_KEY SOPS_RECIPIENTS=$SOPS_RECIPIENTS ./scripts/deploy.sh'"
     environment:
       ANSIBLE_FORCE_COLOR: true
       ANSIBLE_HOST_KEY_CHECKING: false
