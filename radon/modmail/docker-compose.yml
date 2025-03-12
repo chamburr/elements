@@ -82,6 +82,12 @@ services:
   redis:
     image: ghcr.io/dragonflydb/dragonfly:v1.27.2
     restart: unless-stopped
+    command:
+      - dragonfly
+      - --logtostderr
+      - --maxmemory=12gb
+      - --dbfilename=
+      - --version_check=false
     healthcheck:
       disable: true
 
