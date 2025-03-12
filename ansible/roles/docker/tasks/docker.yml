@@ -7,7 +7,7 @@
   ansible.builtin.user:
     name: "{{ common_username }}"
     groups: docker
-    append: yes
+    append: true
 
 - name: Add docker key
   ansible.builtin.get_url:
