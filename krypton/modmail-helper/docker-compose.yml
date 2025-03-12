@@ -1,7 +1,7 @@
 services:
   helper:
     # yamllint disable-line rule:line-length
-    image: ghcr.io/chamburr/modmail-helper:latest@sha256:902ea761dcbdac67f62ccb2fa5a7ef946a43910a6879902d59911a4bf2e66cf3
+    image: ghcr.io/chamburr/modmail-helper:latest@sha256:418c893ceb99b2f7b9b603faa27a500297968b40ec2b74aa4b606cf169ae748e
     restart: unless-stopped
     command:
       - /bin/sh
