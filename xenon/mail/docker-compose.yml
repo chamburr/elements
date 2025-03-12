@@ -111,7 +111,7 @@ services:
       disable: true
 
   redis:
-    image: public.ecr.aws/docker/library/redis:7.4.2-alpine
+    image: docker.io/library/redis:7.4.2-alpine
     restart: unless-stopped
     volumes:
       - redis:/data

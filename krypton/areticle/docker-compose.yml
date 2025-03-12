@@ -1,6 +1,6 @@
 services:
   ghost:
-    image: public.ecr.aws/docker/library/ghost:5.111.0-alpine
+    image: docker.io/library/ghost:5.111.0-alpine
     restart: unless-stopped
     environment:
       - url=https://areticle.com
@@ -33,7 +33,7 @@ services:
       - traefik.http.routers.areticle.tls.domains[0].sans=*.areticle.com
 
   mysql:
-    image: public.ecr.aws/docker/library/mysql:8.4.4
+    image: docker.io/library/mysql:8.4.4
     restart: unless-stopped
     command:
       - --performance-schema=OFF

@@ -1,6 +1,6 @@
 services:
   wireguard:
-    image: public.ecr.aws/docker/library/alpine:3.21.3
+    image: docker.io/library/alpine:3.21.3
     restart: unless-stopped
     command:
       - /entrypoint.sh
