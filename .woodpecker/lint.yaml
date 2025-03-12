@@ -7,9 +7,9 @@ steps:
     image: python
     commands:
       - pip install yamllint
-      - yamllint .
+      - yamllint -s .
   - name: lint ansible
     image: python
     commands:
       - pip install ansible-lint
-      - ansible-lint ansible -q
+      - ansible-lint -q ansible
