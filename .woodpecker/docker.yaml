@@ -12,7 +12,7 @@ when:
       - helium/**
 
 steps:
-  - name: run deploy script
+  - name: run deploy
     image: python
     commands:
       - pip install ansible
