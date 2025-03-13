@@ -10,6 +10,6 @@ find /scripts/data -type f -mtime +$(($retention - 1)) | sed 's/.\///' \
 
 rclone --config /etc/rclone/rclone.conf sync /data minio:elements/$hostname \
   --s3-no-check-bucket --backup-dir minio:elements/_old/$hostname/$date \
-  --exclude /data/backingFsBlockDev --exclude "/data/{{[0-9a-f]{64}}}"
+  --exclude /backingFsBlockDev --exclude "/{{[0-9a-f]{64}}}"
 
 touch "/scripts/data/$date"
