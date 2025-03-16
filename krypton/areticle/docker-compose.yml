@@ -1,6 +1,6 @@
 services:
   ghost:
-    image: docker.io/library/ghost:5.111.0-alpine
+    image: docker.io/library/ghost:5.113.0-alpine
     restart: unless-stopped
     environment:
       - url=https://areticle.com
