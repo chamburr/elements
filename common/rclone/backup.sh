@@ -1,11 +1,9 @@
 #!/bin/sh
 
-retention=7
-
 hostname=$(cat /scripts/hostname)
 date=$(date +%F)
 
-files="$(find /scripts/data -type f -mtime +$(($retention - 1)) | sed 's/.*\///')"
+files="$(find /scripts/data -type f -mtime +6 | sed 's/.*\///')"
 
 echo "$files" | xargs -I{} rclone --config /etc/rclone/rclone.conf purge minio:elements/_old/$hostname/{}
 echo "$files" | xargs -I{} rm /scripts/data/{}
