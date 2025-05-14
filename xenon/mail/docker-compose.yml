@@ -111,7 +111,7 @@ services:
       disable: true
 
   redis:
-    image: docker.io/library/redis:7.4.3-alpine
+    image: docker.io/library/redis:8.0.1-alpine
     restart: unless-stopped
     volumes:
       - redis:/data
