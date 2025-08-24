@@ -27,7 +27,7 @@ services:
       - traefik.http.routers.mail.tls.domains[0].sans=*.chamburr.com
 
   admin:
-    image: ghcr.io/mailu/admin:2024.06.37
+    image: ghcr.io/mailu/admin:2024.06.43
     restart: unless-stopped
     env_file: .env
     environment:
