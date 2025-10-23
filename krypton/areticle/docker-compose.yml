@@ -33,7 +33,7 @@ services:
       - traefik.http.routers.areticle.tls.domains[0].sans=*.areticle.com
 
   mysql:
-    image: docker.io/library/mysql:9.4.0
+    image: docker.io/library/mysql:9.5.0
     restart: unless-stopped
     command:
       - --performance-schema=OFF
