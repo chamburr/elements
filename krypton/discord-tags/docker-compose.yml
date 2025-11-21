@@ -1,0 +1,27 @@
+services:
+  tags:
+    image: discord-tags:latest
+    restart: unless-stopped
+    env_file: .env
+    networks:
+      - default
+      - traefik_default
+    volumes:
+      - tags:/data
+    labels:
+      - traefik.enable=true
+      - traefik.http.services.discord-tags.loadbalancer.server.port=3000
+      - traefik.http.routers.discord-tags.rule=Host(`discordtags.me`) || Host(`www.discordtags.me`)
+      - traefik.http.routers.discord-tags.service=discord-tags
+      - traefik.http.routers.discord-tags.middlewares=redirect
+      - traefik.http.routers.discord-tags.tls=true
+      - traefik.http.routers.discord-tags.tls.certresolver=letsencrypt
+      - traefik.http.routers.discord-tags.tls.domains[0].main=discordtags.me
+      - traefik.http.routers.discord-tags.tls.domains[0].sans=*.discordtags.me
+
+networks:
+  traefik_default:
+    external: true
+
+volumes:
+  tags:
