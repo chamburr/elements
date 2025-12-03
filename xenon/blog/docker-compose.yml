@@ -1,6 +1,6 @@
 services:
   ghost:
-    image: docker.io/library/ghost:6.9.1-alpine
+    image: docker.io/library/ghost:6.9.3-alpine
     restart: unless-stopped
     environment:
       - url=https://blog.chamburr.com
