@@ -1,7 +1,7 @@
 services:
   tags:
     # yamllint disable-line rule:line-length
-    image: ghcr.io/chamburr/discord-tags:latest@sha256:1f22e6820ab41066c5674c914a71b773960cdca18a051a263788e9c49b54c861
+    image: ghcr.io/chamburr/discord-tags:latest@sha256:e6e8192851a2cb9a8edb5f0820c72aa7e0b17251c1eeaa32d2d2f9339eec0c9a
     restart: unless-stopped
     env_file: .env
     networks:
