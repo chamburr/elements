@@ -4,6 +4,7 @@
     "docker:enableMajor",
     ":disableRateLimiting",
     ":disableDependencyDashboard",
+    ":semanticCommits",
     "github>chamburr/elements//.renovate/auto-merge",
     "github>chamburr/elements//.renovate/commit-message",
     "github>chamburr/elements//.renovate/pr-label"
