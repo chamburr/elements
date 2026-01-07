@@ -1,6 +1,6 @@
 services:
   wiki:
-    image: ghcr.io/requarks/wiki:2.5.308
+    image: ghcr.io/requarks/wiki:2.5.310
     restart: unless-stopped
     command:
       - /bin/sh
