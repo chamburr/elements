@@ -36,7 +36,7 @@ services:
       - traefik.http.routers.blog.tls.domains[0].sans=*.chamburr.com
 
   mysql:
-    image: docker.io/library/mysql:9.5.0
+    image: docker.io/library/mysql:9.6.0
     restart: unless-stopped
     command:
       - --performance-schema=OFF
