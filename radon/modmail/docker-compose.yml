@@ -94,7 +94,7 @@ services:
       disable: true
 
   rabbitmq:
-    image: docker.io/library/rabbitmq:4.0.7-alpine
+    image: docker.io/library/rabbitmq:4.2.4-alpine
     restart: unless-stopped
 
 networks:
