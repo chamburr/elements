@@ -1,6 +1,6 @@
 services:
   rclone:
-    image: ghcr.io/rclone/rclone:1.72.1
+    image: ghcr.io/rclone/rclone:1.73.1
     restart: unless-stopped
     entrypoint: []
     command:
