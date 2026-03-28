@@ -71,7 +71,7 @@ services:
       - rabbitmq
 
   postgres:
-    image: docker.io/library/postgres:17.4-alpine
+    image: docker.io/library/postgres:17.9-alpine
     restart: unless-stopped
     environment:
       - POSTGRES_DB=modmail
