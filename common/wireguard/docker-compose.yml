@@ -1,6 +1,6 @@
 services:
   wireguard:
-    image: docker.io/library/alpine:3.23.3
+    image: docker.io/library/alpine:3.23.4
     restart: unless-stopped
     command:
       - /entrypoint.sh
