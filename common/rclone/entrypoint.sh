@@ -5,4 +5,4 @@ rclone --config /etc/rclone/rclone.conf config create minio s3 provider Minio \
 
 echo "0 0 * * * /scripts/backup.sh" > /var/spool/cron/crontabs/root
 
-crond -f
+exec crond -f
