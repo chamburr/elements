@@ -1,6 +1,6 @@
 services:
   tailscale:
-    image: ghcr.io/tailscale/tailscale:v1.92.5
+    image: ghcr.io/tailscale/tailscale:v1.98.8
     restart: unless-stopped
     command:
       - /entrypoint.sh
