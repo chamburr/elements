@@ -46,6 +46,17 @@ services:
     volumes:
       - mysql:/var/lib/mysql
 
+  backup:
+    image: docker.io/library/alpine:3.24.1
+    restart: unless-stopped
+    command:
+      - /entrypoint.sh
+    volumes:
+      - ${PWD}/backup.sh:/entrypoint.sh:ro
+      - backup:/backup
+    depends_on:
+      - mysql
+
 networks:
   traefik_default:
     external: true
@@ -53,3 +64,4 @@ networks:
 volumes:
   ghost:
   mysql:
+  backup:

@@ -26,9 +26,20 @@ services:
       - traefik.http.routers.discord-templates.tls.domains[0].main=discordtemplates.me
       - traefik.http.routers.discord-templates.tls.domains[0].sans=*.discordtemplates.me
 
+  backup:
+    image: docker.io/library/alpine:3.24.1
+    restart: unless-stopped
+    command:
+      - /entrypoint.sh
+    volumes:
+      - ${PWD}/backup.sh:/entrypoint.sh:ro
+      - templates:/data
+      - backup:/backup
+
 networks:
   traefik_default:
     external: true
 
 volumes:
   templates:
+  backup:

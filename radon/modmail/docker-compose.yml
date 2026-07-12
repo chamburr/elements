@@ -79,6 +79,17 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
 
+  backup:
+    image: docker.io/library/alpine:3.24.1
+    restart: unless-stopped
+    command:
+      - /entrypoint.sh
+    volumes:
+      - ${PWD}/backup.sh:/entrypoint.sh:ro
+      - backup:/backup
+    depends_on:
+      - postgres
+
   redis:
     image: ghcr.io/dragonflydb/dragonfly:v1.38.0
     restart: unless-stopped
@@ -103,3 +114,4 @@ networks:
 
 volumes:
   postgres:
+  backup:

@@ -20,9 +20,20 @@ services:
       - traefik.http.routers.discord-tags.tls.domains[0].main=discordtags.me
       - traefik.http.routers.discord-tags.tls.domains[0].sans=*.discordtags.me
 
+  backup:
+    image: docker.io/library/alpine:3.24.1
+    restart: unless-stopped
+    command:
+      - /entrypoint.sh
+    volumes:
+      - ${PWD}/backup.sh:/entrypoint.sh:ro
+      - tags:/data
+      - backup:/backup
+
 networks:
   traefik_default:
     external: true
 
 volumes:
   tags:
+  backup:

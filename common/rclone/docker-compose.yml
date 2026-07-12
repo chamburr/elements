@@ -9,6 +9,7 @@ services:
       - S3_ENDPOINT=${ENDPOINT}
       - S3_ACCESS_KEY=${ACCESS_KEY}
       - S3_SECRET_KEY=${SECRET_KEY}
+      - NTFY_TOKEN=${NTFY_TOKEN}
     volumes:
       - rclone:/scripts/data
       - ${PWD}/entrypoint.sh:/entrypoint.sh:ro
