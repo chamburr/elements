@@ -91,7 +91,7 @@ services:
       - postgres
 
   redis:
-    image: ghcr.io/dragonflydb/dragonfly:v1.38.0
+    image: ghcr.io/dragonflydb/dragonfly:v1.39.0
     restart: unless-stopped
     command:
       - dragonfly
