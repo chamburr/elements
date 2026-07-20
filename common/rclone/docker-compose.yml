@@ -16,6 +16,9 @@ services:
       - ${PWD}/backup.sh:/scripts/backup.sh:ro
       - /etc/hostname:/scripts/hostname:ro
       - /var/lib/docker/volumes:/data:ro
+    extra_hosts:
+      - s3.chamburr.xyz:10.0.0.1
+      - ntfy.chamburr.xyz:10.0.0.1
 
 volumes:
   rclone:
