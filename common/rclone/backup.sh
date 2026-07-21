@@ -14,7 +14,7 @@ done
 
 rclone --config /etc/rclone/rclone.conf sync /data rustfs:elements/$hostname \
   --s3-no-check-bucket --backup-dir rustfs:elements/_old/$hostname/$date \
-  --exclude /backingFsBlockDev --exclude "/{{[0-9a-f]{64}}}" \
+  --exclude /backingFsBlockDev --exclude "/{{[0-9a-f]{64}}}/**" \
   --exclude /blog_mysql/** --exclude /areticle_mysql/** \
   --exclude /wjfclass_mariadb/** --exclude /modmail_postgres/** \
   --exclude /discord-tags_tags/_data/data.db \
