@@ -73,7 +73,7 @@ services:
       disable: true
 
   rspamd:
-    image: ghcr.io/mailu/rspamd:2024.06.57
+    image: ghcr.io/mailu/rspamd:2024.06.58
     hostname: rspamd
     restart: unless-stopped
     env_file: .env
