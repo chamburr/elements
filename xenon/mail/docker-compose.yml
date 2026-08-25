@@ -44,7 +44,7 @@ services:
       disable: true
 
   dovecot:
-    image: ghcr.io/mailu/dovecot:2024.06.57
+    image: ghcr.io/mailu/dovecot:2024.06.58
     restart: unless-stopped
     env_file: .env
     volumes:
