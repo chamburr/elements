@@ -44,7 +44,7 @@ services:
       - mysql:/var/lib/mysql
 
   backup:
-    image: docker.io/library/alpine:3.24.1
+    image: docker.io/library/alpine:3.24.2
     restart: unless-stopped
     command:
       - /entrypoint.sh
