@@ -21,7 +21,7 @@ services:
       - traefik.http.routers.discord-tags.tls.domains[0].sans=*.discordtags.me
 
   backup:
-    image: docker.io/library/alpine:3.24.1
+    image: docker.io/library/alpine:3.24.2
     restart: unless-stopped
     command:
       - /entrypoint.sh
