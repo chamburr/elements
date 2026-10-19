@@ -13,7 +13,7 @@ when:
 
 steps:
   - name: run deploy
-    image: python
+    image: python:3.14
     commands:
       - pip install ansible
       - echo "$SSH_PRIVATE_KEY" > /tmp/id_ed25519
