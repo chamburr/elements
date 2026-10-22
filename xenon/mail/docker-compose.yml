@@ -59,7 +59,7 @@ services:
       disable: true
 
   postfix:
-    image: ghcr.io/mailu/postfix:2024.06.64
+    image: ghcr.io/mailu/postfix:2024.06.65
     restart: unless-stopped
     env_file: .env
     volumes:
