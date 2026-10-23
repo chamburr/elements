@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: ghcr.io/mailu/nginx:2024.06.65
+    image: ghcr.io/mailu/nginx:2024.06.67
     restart: unless-stopped
     env_file: .env
     environment:
