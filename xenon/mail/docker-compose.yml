@@ -89,7 +89,7 @@ services:
       disable: true
 
   unbound:
-    image: ghcr.io/mailu/unbound:2024.06.67
+    image: ghcr.io/mailu/unbound:2024.06.68
     restart: unless-stopped
     env_file: .env
     networks:
